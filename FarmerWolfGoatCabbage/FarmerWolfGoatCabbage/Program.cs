@@ -26,7 +26,7 @@ namespace FarmerWolfGoatCabbage
                 Console.WriteLine("6. Back: farmer and cabbage");
                 Console.WriteLine("7. Back: farmer and goat");
                 Console.WriteLine("8. Back: farmer");
-                Console.WriteLine("Other to exit....");
+                Console.WriteLine("Other number to exit....");
 
                 var strChoise = Console.ReadLine();
                 var intChoise = int.Parse(strChoise);
