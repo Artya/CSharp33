@@ -11,9 +11,9 @@ namespace FarmerWolfGoatCabbage
             bool farmerOnLeftBank = true;
             bool wolfOnLeftBank = true;
             bool goatOnLeftBank = true;
-            bool cabbageOnLeftBank = true;
+            bool cabbagIsOnLeftBank = true;
 
-            ShowBanksState(farmerOnLeftBank, wolfOnLeftBank, goatOnLeftBank, cabbageOnLeftBank);
+            ShowBanksState(farmerOnLeftBank, wolfOnLeftBank, goatOnLeftBank, cabbagIsOnLeftBank);
 
             while (true)
             {
@@ -51,11 +51,11 @@ namespace FarmerWolfGoatCabbage
                                 break;
 
 
-                            if (!CheckCorrectMovePersonageToBank(Personages.cabbage, false, cabbageOnLeftBank))
+                            if (!CheckCorrectMovePersonageToBank(Personages.cabbage, false, cabbagIsOnLeftBank))
                                 break;
 
                             farmerOnLeftBank = false;
-                            cabbageOnLeftBank = false;
+                            cabbagIsOnLeftBank = false;
                             break;
                         }
                     case 3:
@@ -98,11 +98,11 @@ namespace FarmerWolfGoatCabbage
                                 break;
 
 
-                            if (!CheckCorrectMovePersonageToBank(Personages.cabbage, true, cabbageOnLeftBank))
+                            if (!CheckCorrectMovePersonageToBank(Personages.cabbage, true, cabbagIsOnLeftBank))
                                 break;
 
                             farmerOnLeftBank = true;
-                            cabbageOnLeftBank = true;
+                            cabbagIsOnLeftBank = true;
                             break;
                         }
                     case 7:
@@ -134,9 +134,9 @@ namespace FarmerWolfGoatCabbage
                         }
                 }
 
-                ShowBanksState(farmerOnLeftBank, wolfOnLeftBank, goatOnLeftBank, cabbageOnLeftBank);
+                ShowBanksState(farmerOnLeftBank, wolfOnLeftBank, goatOnLeftBank, cabbagIsOnLeftBank);
 
-                if (!farmerOnLeftBank && !wolfOnLeftBank && !goatOnLeftBank && !cabbageOnLeftBank)
+                if (!farmerOnLeftBank && !wolfOnLeftBank && !goatOnLeftBank && !cabbagIsOnLeftBank)
                 {
                     Console.WriteLine("Congrtatulation!!!! Task complete succesful!!!!");
                     return;
@@ -146,7 +146,7 @@ namespace FarmerWolfGoatCabbage
                     ShowAteGameOver(Personages.wolf, Personages.goat);
                     return;
                 }
-                else if (farmerOnLeftBank != goatOnLeftBank && goatOnLeftBank == cabbageOnLeftBank)
+                else if (farmerOnLeftBank != goatOnLeftBank && goatOnLeftBank == cabbagIsOnLeftBank)
                 {
                     ShowAteGameOver(Personages.goat, Personages.cabbage);
                     return;
