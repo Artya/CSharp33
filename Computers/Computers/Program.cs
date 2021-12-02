@@ -26,7 +26,7 @@ namespace CSharp_Net_module1_1_4_lab
             public int Memory;
             public int Hdd;
 
-            public Computer(ComputerTypeEnum compType)
+            public Computer(ComputerTypeEnum compType) //here my comment
             {
                 ComputerType = compType;
 
