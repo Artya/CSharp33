@@ -94,7 +94,6 @@ namespace SimpleCalculator
                 {
                     Console.Write("Thomething wrong with value you entered. It should be number from 1 to 6. Check it and enter it again, please : ");
                 }
-
             }
 
             var firstOperand = 0d;
@@ -140,7 +139,6 @@ namespace SimpleCalculator
 
             Console.Write("The result of the operation is : ");
             Console.WriteLine(Calc(operation, firstOperand, secondOperand));
-
         }
     }
 }
