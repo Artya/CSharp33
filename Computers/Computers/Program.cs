@@ -15,8 +15,6 @@ namespace CSharp_Net_module1_1_4_lab
             Laptop,
             Server
         }
-
-
         // 2) declare struct Computer
         private struct Computer
         {
@@ -26,7 +24,7 @@ namespace CSharp_Net_module1_1_4_lab
             public int Memory;
             public int Hdd;
 
-            public Computer(ComputerTypeEnum compType) //here my comment
+            public Computer(ComputerTypeEnum compType)
             {
                 ComputerType = compType;
 
@@ -91,8 +89,6 @@ namespace CSharp_Net_module1_1_4_lab
             departments[3] = new Computer[] {new Computer(ComputerTypeEnum.Desktop),
                                             new Computer(ComputerTypeEnum.Laptop),
                                             new Computer(ComputerTypeEnum.Server)};
-
-
             // 5) initialize array
             // Note: use loops and if-else statements
             for (int i = 0; i < departments.GetLength(0); i++)
@@ -130,7 +126,6 @@ namespace CSharp_Net_module1_1_4_lab
                     }
                 }
             }
-
             // 6) count total number of every type of computers
             // 7) count total number of all computers
             // Note: use loops and if-else statements
