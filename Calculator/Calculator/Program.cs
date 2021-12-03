@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Calculator
 {
@@ -37,10 +37,10 @@ namespace Calculator
                         Console.WriteLine($"Факториал числа {previous} равен {Factorial(previous)}");
                         goto StartCalculation;
                     }
-                    if (operation == "+" || operation == "-" || operation == "*" || operation == "/")
+                    if (operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "^")
                         break;
                     else
-                        Console.WriteLine("Неверная операция, доступны только: + - * / !");
+                        Console.WriteLine("Неверная операция, доступны только: + - * / ^ !");
                 }
 
                 while (true)
@@ -72,6 +72,9 @@ namespace Calculator
                     case "/":
                         Console.WriteLine($"{previous} / {current} = {previous / current}");
                         break;
+                    case "^":
+                    	Console.WriteLine($"{previous} ^ {current} = {Math.Pow(previous, current)}");
+                    	break;
                 }
             }
         }
