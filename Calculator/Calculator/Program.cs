@@ -6,51 +6,59 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            int previous;
-            int current;
-            string operation;
+            int previous = default;
+            int current = default;
+            string operation = default;
 
             while(true)
             {
-                StartCalculation:
-                while(true)
+                var askFirstOperand = true;
+                var askSecondOperand = true;
+                var askOperation = true;
+                
+                while(askFirstOperand)
                 {
                     Console.Write("Введите число: ");
                     var priv = Console.ReadLine();
                     try
                     {
                         previous = int.Parse(priv);
-                        break;
+                        askFirstOperand = false;
                     }
                     catch (Exception)
                     {
                         Console.WriteLine("Это не число");
                     }
                 }
-
-                while(true)
+                
+                while(askOperation)
                 {
                     Console.Write("Введите операцию: ");
                     operation = Console.ReadLine();
+                    
                     if (operation == "!")
                     {
-                        Console.WriteLine($"Факториал числа {previous} равен {Factorial(previous)}");
-                        goto StartCalculation;
+			askOperation = false;
+			askSecondOperand = false;
                     }
-                    if (operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "^")
-                        break;
+                    else if (operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "^")
+                    {
+                        askOperation = false;
+                    }
                     else
+                    {
                         Console.WriteLine("Неверная операция, доступны только: + - * / ^ !");
+                    }
                 }
 
-                while (true)
+                while (askSecondOperand)
                 {
                     Console.Write("Введите число: ");
                     var curr = Console.ReadLine();
                     try
                     {
                         current = int.Parse(curr);
-                        break;
+                        askSecondOperand = false;
                     }
                     catch (Exception)
                     {
@@ -74,6 +82,9 @@ namespace Calculator
                         break;
                     case "^":
                     	Console.WriteLine($"{previous} ^ {current} = {Math.Pow(previous, current)}");
+                    	break;
+                    case "!":
+                    	Console.WriteLine($"{previous}! = {Factorial(previous)}");
                     	break;
                 }
             }
