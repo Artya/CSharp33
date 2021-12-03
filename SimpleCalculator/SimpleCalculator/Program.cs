@@ -48,6 +48,19 @@ namespace SimpleCalculator
             }
             return result;
         }
+
+        public static double InputNumber()
+        {
+            var value = 0d;
+            var input = Console.ReadLine();
+            while (!double.TryParse(input, out value))
+            {
+                Console.Write("The value you entered is not a number. Check it and enter it again, please : ");
+                input = Console.ReadLine();
+            }
+
+            return value;
+        }
         static void Main(string[] args)
         {
             var input = string.Empty;
@@ -84,6 +97,8 @@ namespace SimpleCalculator
 
             }
 
+            var firstOperand = 0d;
+            var secondOperand = 0d;
             switch (operation)
             {
                 case Operations.Multiplication:
@@ -95,80 +110,37 @@ namespace SimpleCalculator
                 case Operations.Subtraction:
                      {
                         Console.Write("Please, enter the first operand: ");
-                        input = Console.ReadLine();
-
-                        var operand1 = 0d;
-
-                        while (!double.TryParse(input, out operand1))
-                        {
-                            Console.Write("The value you entered is not a number. Check it and enter it again, please : ");
-                            input = Console.ReadLine();
-                        }
+                        firstOperand = InputNumber();
 
                         Console.Write("//n Now, please enter the second operand: ");
-                        input = Console.ReadLine();
-
-                        var operand2 = 0d;
-
-                        while (!double.TryParse(input, out operand2))
-                        {
-                            Console.Write("The value you entered is not a number. Check it and enter it again, please : ");
-                            input = Console.ReadLine();
-                        }
-
-                        Console.Write("The result of the operation is : ");
-                        Console.WriteLine(Calc(operation, operand1, operand2));
+                        secondOperand = InputNumber();
                     }
                     break;
 
                 case Operations.Exponentiation:
                     {
                         Console.Write("Please, enter the base: ");
-                        input = Console.ReadLine();
-
-                        var operand1 = 0d;
-
-                        while (!double.TryParse(input, out operand1))
-                        {
-                            Console.Write("The value you entered is not a number. Check it and enter it again, please : ");
-                            input = Console.ReadLine();
-                        }
+                        firstOperand = InputNumber();
 
                         Console.Write("/n Now, please enter the power: ");
-                        input = Console.ReadLine();
-
-                        var operand2 = 0d;
-
-                        while (!double.TryParse(input, out operand2))
-                        {
-                            Console.Write("The value you entered is not a number. Check it and enter it again, please : ");
-                            input = Console.ReadLine();
-                        }
-
-                        Console.Write("The result of the operation is : ");
-                        Console.WriteLine(Calc(operation, operand1, operand2));
+                        secondOperand = InputNumber();
                     }
                     break;
                 case Operations.Factorial:
                     {
                         Console.Write("Please, enter the value for factorial: ");
-                        input = Console.ReadLine();
-
-                        int operand1 = 0;
-
-                        while (!int.TryParse(input, out operand1))
-                        {
-                            Console.Write("The value you entered is not a number. Check it and enter it again, please : ");
-                            input = Console.ReadLine();
-                        }
-                        Console.WriteLine("The result of the operation is :" );
-                        Console.WriteLine(Calc(operation, operand1));
+                        firstOperand = Math.Round(InputNumber());
+                        secondOperand = 0d;
                     }
                     break;
 
                 default:
                     break;
             }
+
+            Console.Write("The result of the operation is : ");
+            Console.WriteLine(Calc(operation, firstOperand, secondOperand));
+
         }
     }
 }
