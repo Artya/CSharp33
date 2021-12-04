@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 namespace Hello_Console_stud
@@ -7,7 +7,6 @@ namespace Hello_Console_stud
     {
         static void Main(string[] args)
         {
-            int a;
             try
             {
                 do
@@ -22,23 +21,23 @@ namespace Hello_Console_stud
                     ");
                     try
                     {
-                        a = (int)uint.Parse(Console.ReadLine());
-                        switch (a)
+                        var operation = (int)uint.Parse(Console.ReadLine());
+                        switch (operation)
                         {
                             case 1:
-                                My_strings();
+                                MyStrings();
                                 Console.WriteLine("");
                                 break;
                             case 2:
-                                My_Binary();
+                                MyBinary();
                                 Console.WriteLine("");
                                 break;
                             case 3:
-                                My_music();
+                                MyMusic();
                                 Console.WriteLine("");
                                 break;
                             case 4:
-                                Morse_code();
+                                MorseCode();
                                 Console.WriteLine("");
                                 break;                   
                             default:
@@ -63,7 +62,7 @@ namespace Hello_Console_stud
             }
         }
         #region ToFromBinary
-        static void My_Binary()
+        static void MyBinary()
         {
             //Implement positive integer variable input
             Console.Write("Enter positive number: ");
@@ -83,12 +82,12 @@ namespace Hello_Console_stud
             //and Array.Reverse() method
             char[] binArray = binStr.ToCharArray();
             Array.Reverse(binArray);
-            Console.WriteLine(binArray);
+            Console.WriteLine(new string(binArray));
         }
         #endregion
 
         #region ToFromUnary
-        static void My_strings()
+        static void MyStrings()
         {
             //Declare int and string variables for decimal and binary presentations
             Console.Write("Enter first number: ");
@@ -126,7 +125,7 @@ namespace Hello_Console_stud
         #endregion
 
         #region My_music
-        static void My_music()
+        static void MyMusic()
         {
             //HappyBirthday
             Thread.Sleep(2000);
@@ -185,7 +184,7 @@ namespace Hello_Console_stud
         #endregion
 
         #region Morse
-        static void Morse_code()
+        static void MorseCode()
         {
             //Create string variable for 'sos'      
             var sos = "sos";
@@ -194,25 +193,25 @@ namespace Hello_Console_stud
             { ".-   ", "-... ", "-.-. ", "-..  ", ".    ", "..-. ", "--.  ", ".... ", "..   ", ".--- ", "-.-  ", ".-.. ", "--   ", "-.   ", "---  ", ".--. ", "--.- ", ".-.  ", "...  ", "-    ", "..-  ", "...- ", ".--  ", "-..- ", "-.-- ", "--.. ", "-----", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----." }};
             //Use ToCharArray() method for string to copy charecters to Unicode character array
             //Use foreach loop for character array in which
-            foreach (var c in sos.ToCharArray())
+            foreach (var character in sos.ToCharArray())
             {
                 for (var i = 0; i < Dictionary_arr.GetLength(1); i++)
                 {
-                    if (c == char.Parse(Dictionary_arr[0, i]))
+                    if (character == char.Parse(Dictionary_arr[0, i]))
                     {
-                        foreach (var s in Dictionary_arr[1, i].ToCharArray())
+                        foreach (var morseCodeCharacter in Dictionary_arr[1, i].ToCharArray())
                         {
-                            if (s == '.')
+                            if (morseCodeCharacter == '.')
                             {
                                 //Implement Console.Beep(1000, 250) for '.'
                                 Console.Beep(1000, 250);
                             }
-                            else if (s == '-')
+                            else if (morseCodeCharacter == '-')
                             {
                                 // and Console.Beep(1000, 750) for '-'
                                 Console.Beep(1000, 750);
                             }
-                            else if (s == ' ')
+                            else if (morseCodeCharacter == ' ')
                             {
                                 continue;
                             }
