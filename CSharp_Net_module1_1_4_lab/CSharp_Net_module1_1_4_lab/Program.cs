@@ -24,10 +24,10 @@ namespace CSharp_Net_module1_1_4_lab
             public float HGz;
             public byte Memory;
             public int HDD;
-
+            
             public override string ToString()
             {
-                return this.Type.ToString();
+            	return this.Type.ToString();
             }
         }
 
@@ -89,7 +89,7 @@ namespace CSharp_Net_module1_1_4_lab
                     }
 
                     // changing memory to 8GB for all desktop computers
-                    if (departments[i][j].ToString() == ComputerType.Desktop.ToString())
+                    if (departments[i][j].Type == ComputerType.Desktop)
                     {
                         departments[i][j].Memory = 8;
                     }
