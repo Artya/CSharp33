@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,13 +62,12 @@ namespace CSharp_Net_module1_1_4_lab
             new Computer[] {desktop, laptop, server, server}
             };
 
-            // preparing variables
-            int allComputersCount = 0;
-            int maxHDD = 0;
-            int minCPU = int.MaxValue;
-            int minMemory = int.MaxValue;
-            string computerWithLargestHDD = "";
-            string computerWithLowestProductivity = "";
+            var allComputersCount = 0;
+            var maxHDD = 0;
+            var minCPU = int.MaxValue;
+            var minMemory = int.MaxValue;
+            var computerWithLargestHDD = string.Empty;
+            var computerWithLowestProductivity = string.Empty;
 
             for (var i=0; i < 4; i++)
             {
