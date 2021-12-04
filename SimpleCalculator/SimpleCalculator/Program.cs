@@ -102,35 +102,39 @@ namespace SimpleCalculator
             {
                 case Operations.Multiplication:
 
-                case Operations.Division:
-
                 case Operations.Addition:
 
                 case Operations.Subtraction:
-                     {
-                        Console.Write("Please, enter the first operand: ");
-                        firstOperand = InputNumber();
+                    Console.Write("Please, enter the first operand: ");
+                    firstOperand = InputNumber();
 
-                        Console.Write("//n Now, please enter the second operand: ");
+                    Console.Write("//n Now, please enter the second operand: ");
+                    secondOperand = InputNumber();
+                    break;
+
+                case Operations.Division:
+                    Console.Write("Please, enter the first operand: ");
+                    firstOperand = InputNumber();
+
+                    Console.Write("//n Now, please enter the second operand: ");
+                    secondOperand = InputNumber();
+                    while(secondOperand == 0) 
+                    {
+                        Console.WriteLine("You can not devide by zero. Reenter second operand, please: ");
                         secondOperand = InputNumber();
                     }
                     break;
-
                 case Operations.Exponentiation:
-                    {
-                        Console.Write("Please, enter the base: ");
-                        firstOperand = InputNumber();
+                    Console.Write("Please, enter the base: ");
+                    firstOperand = InputNumber();
 
-                        Console.Write("/n Now, please enter the power: ");
-                        secondOperand = InputNumber();
-                    }
+                    Console.Write("/n Now, please enter the power: ");
+                    secondOperand = InputNumber();
                     break;
                 case Operations.Factorial:
-                    {
-                        Console.Write("Please, enter the value for factorial: ");
-                        firstOperand = Math.Round(InputNumber());
-                        secondOperand = 0d;
-                    }
+                    Console.Write("Please, enter the value for factorial: ");
+                    firstOperand = Math.Round(InputNumber());
+                    secondOperand = 0d;
                     break;
 
                 default:
