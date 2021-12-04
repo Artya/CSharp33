@@ -102,37 +102,33 @@ namespace Sorting
             switch (direction)
             {
                 case Direction.ascending:
+                    for (int i = 0; i < array.Length; i++)
                     {
-                        for (int i = 0; i < array.Length; i++)
+                        var temp = array[i];
+                        var countIndex = i;
+
+                        while(countIndex > 0 && array[countIndex - 1] > temp)
                         {
-                            var temp = array[i];
-                            var countIndex = i;
-
-                            while(countIndex > 0 && array[countIndex - 1] > temp)
-                            {
-                                array[countIndex] = array[countIndex - 1];
-                                countIndex--;
-                            }
-
-                            array[countIndex] = temp;
+                            array[countIndex] = array[countIndex - 1];
+                            countIndex--;
                         }
+
+                        array[countIndex] = temp;
                     }
                     break;
                 case Direction.descending:
+                    for (int i =0; i < array.Length; i++)
                     {
-                        for (int i =0; i < array.Length; i++)
+                        var temp = array[i];
+                        var countIndex = i;
+
+                        while (countIndex > 0 && array[countIndex-1] < temp)
                         {
-                            var temp = array[i];
-                            var countIndex = i;
-
-                            while (countIndex > 0 && array[countIndex-1] < temp)
-                            {
-                                array[countIndex] = array[countIndex - 1];
-                                countIndex--;
-                            }
-
-                            array[countIndex] = temp;
+                            array[countIndex] = array[countIndex - 1];
+                            countIndex--;
                         }
+
+                        array[countIndex] = temp;
                     }
                     break;
                 default:
@@ -143,19 +139,7 @@ namespace Sorting
 
         public static double[] BubleSort(double[] array, Direction direction)
         {
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                for (int j = 0; j < array.Length - i - 1; j++)
-                {
-                    if (array[j] > array[j + 1])
-                    {
-                        var temp = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = temp;
-                    }
-                }
-            }
-            switch (direction)
+             switch (direction)
             {
                 case Direction.ascending:
                     for (int i = 0; i < array.Length - 1; i++)

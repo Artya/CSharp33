@@ -25,7 +25,6 @@ namespace Sorting
 
             var stopwatch = new Stopwatch();
 
-
             stopwatch.Start();
             Array.Sort(array);
             stopwatch.Stop();
@@ -59,8 +58,6 @@ namespace Sorting
             stopwatch.Stop();
 
             Console.WriteLine("Binary Tree Sorting: " + stopwatch.ElapsedMilliseconds);
-
-            Console.WriteLine();
         }
     }
 }
