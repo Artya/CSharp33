@@ -31,36 +31,28 @@ namespace CSharp_Net_module1_1_4_lab
                 switch (ComputerType)
                 {
                     case ComputerTypeEnum.Desktop:
-                        {
-                            CpuCores = 4;
-                            CpuFrequency = 2.5;
-                            Memory = 6;
-                            Hdd = 500;
-                        }
+                        CpuCores = 4;
+                        CpuFrequency = 2.5;
+                        Memory = 6;
+                        Hdd = 500;
                         break;
                     case ComputerTypeEnum.Laptop:
-                        {
-                            CpuCores = 2;
-                            CpuFrequency = 1.7;
-                            Memory = 4;
-                            Hdd = 250;
-                        }
+                        CpuCores = 2;
+                        CpuFrequency = 1.7;
+                        Memory = 4;
+                        Hdd = 250;
                         break;
                     case ComputerTypeEnum.Server:
-                        {
-                            CpuCores = 8;
-                            CpuFrequency = 3;
-                            Memory = 16;
-                            Hdd = 2048;
-                        }
+                        CpuCores = 8;
+                        CpuFrequency = 3;
+                        Memory = 16;
+                        Hdd = 2048;
                         break;
                     default:
-                        {
-                            CpuCores = 0;
-                            CpuFrequency = 0;
-                            Memory = 0;
-                            Hdd = 0;
-                        }
+                        CpuCores = 0;
+                        CpuFrequency = 0;
+                        Memory = 0;
+                        Hdd = 0;
                         break;
                 }
             }
@@ -89,43 +81,7 @@ namespace CSharp_Net_module1_1_4_lab
             departments[3] = new Computer[] {new Computer(ComputerTypeEnum.Desktop),
                                             new Computer(ComputerTypeEnum.Laptop),
                                             new Computer(ComputerTypeEnum.Server)};
-            // 5) initialize array
-            // Note: use loops and if-else statements
-            for (int i = 0; i < departments.GetLength(0); i++)
-            {
-                for (int j = 0; j < departments[i].Length; j++)
-                {
-                    switch (departments[i][j].ComputerType)
-                    {
-                        case ComputerTypeEnum.Desktop:
-                            {
-                                departments[i][j].CpuCores = 4;
-                                departments[i][j].CpuFrequency = 2.5;
-                                departments[i][j].Memory = 6;
-                                departments[i][j].Hdd = 500;
-                            }
-                            break;
-                        case ComputerTypeEnum.Laptop:
-                            {
-                                departments[i][j].CpuCores = 2;
-                                departments[i][j].CpuFrequency = 1.7;
-                                departments[i][j].Memory = 4;
-                                departments[i][j].Hdd = 250;
-                            }
-                            break;
-                        case ComputerTypeEnum.Server:
-                            {
-                                departments[i][j].CpuCores = 8;
-                                departments[i][j].CpuFrequency = 3;
-                                departments[i][j].Memory = 16;
-                                departments[i][j].Hdd = 2048;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+
             // 6) count total number of every type of computers
             // 7) count total number of all computers
             // Note: use loops and if-else statements
