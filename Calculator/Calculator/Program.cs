@@ -9,6 +9,8 @@ namespace Calculator
             int previous = default;
             int current = default;
             string operation = default;
+            
+            Console.WriteLine("Калькулятор поддерживает только такие операции: + - * / ^ !");
 
             while(true)
             {
