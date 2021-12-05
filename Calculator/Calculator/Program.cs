@@ -78,6 +78,9 @@ namespace Calculator
                         Console.WriteLine($"{previous} * {current} = {previous * current}");
                         break;
                     case "/":
+                    	if (current == 0)
+                    		Console.WriteLine("Делить на ноль нельзя!"); break;
+                    	
                         Console.WriteLine($"{previous} / {current} = {previous / current}");
                         break;
                     case "^":
