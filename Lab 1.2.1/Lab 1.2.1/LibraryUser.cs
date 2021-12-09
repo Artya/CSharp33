@@ -51,7 +51,7 @@ namespace Lab_1._2._1
             this.FirstName = "No name";
             this.LastName = "No last name";
             this.Phone = "No phone";
-            this.Anonymous = true;
+            this.IsAnonymous = true;
             this.BookLimit = 10;
             this.Id = LibraryUser.GetNextId();
             this.bookList = new List<string>();
@@ -62,7 +62,7 @@ namespace Lab_1._2._1
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phone;
-            this.Anonymous = false;
+            this.IsAnonymous = false;
             this.BookLimit = bookLimit;
             this.Id = LibraryUser.GetNextId();
             this.bookList = new List<string>();
