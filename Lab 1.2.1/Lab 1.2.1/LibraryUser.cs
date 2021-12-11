@@ -35,13 +35,13 @@ namespace Lab_1._2._1
             get
             {
                 if (index >= this.BookCount || index >= this.BookLimit || index < 0)
-                    throw new IndexOutOfRangeException();
+                    throw new IndexOutOfRangeException($"Index must be: non negative integer, not greater or equal to book limit ({this.BookLimit}), not greater or equal to book count ({this.BookCount})");
                 return this.bookList[index];
             }
             set
             {
                 if (index >= this.BookCount || index >= this.BookLimit || index < 0)
-                    throw new IndexOutOfRangeException();
+                    throw new IndexOutOfRangeException($"Index must be: non negative integer, not greater or equal to book limit ({this.BookLimit}), not greater or equal to book count ({this.BookCount})");
                 this.bookList[index] = value;
             }
         }
