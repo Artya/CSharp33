@@ -70,6 +70,8 @@ namespace Lab_1._2._1
 
         public void AddBook(string bookName)
         {
+            if (this.BookCount + 1 > this.BookLimit)
+                throw new IndexOutOfRangeException("Reached book limit");
             this.bookList.Add(bookName);
         }
 
