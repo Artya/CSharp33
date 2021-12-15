@@ -9,6 +9,8 @@ namespace OperatorOverloading
             var moneyObj1 = new Money(100, CurrencyType.USD);
             var moneyObj2 = new Money(200, CurrencyType.UAN);
 
+	    moneyObj *= 2;
+
             moneyObj1++;
             moneyObj2--;
 
