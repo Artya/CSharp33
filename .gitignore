@@ -5,6 +5,8 @@
 *.suo
 *.user
 *.sln.docstates
+*.dtbcache.v2
+
 
 # Build results
 
@@ -131,4 +133,3 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
-FarmerWolfGoatCabbage/.vs/FarmerWolfGoatCabbage/DesignTimeBuild/.dtbcache.v2
