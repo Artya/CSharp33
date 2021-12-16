@@ -21,8 +21,6 @@ namespace CSharp_Net_Module_1_4_Lab
         public const int laptopHdd  = 250;
         public const int serverHdd = 2000;
 
-        public enum CompType { desktop, laptop, server};
-
         public struct Cpu 
         { 
             public byte Cores { get;  }
@@ -48,13 +46,13 @@ namespace CSharp_Net_Module_1_4_Lab
 
                 switch (compType)
                     {
-                    case CompType.desktop:
+                    case CompType.Desktop:
                         this.CPU = new Cpu(desktopCores, desktopFrequency); 
                         this.Memory = desktopMemory;
                         this.HDD = desktopHdd; 
                         break;
 
-                    case CompType.laptop:
+                    case CompType.Laptop:
                         this.CPU = new Cpu(laptopoCores, laptopFrequency); 
                         this.Memory = laptopMemory;
                         this.HDD = laptopHdd;
@@ -67,27 +65,19 @@ namespace CSharp_Net_Module_1_4_Lab
                         break;
                 }
             }
-
-            public void UpgradeMemory(bool showComment = true)
+            public void UpgradeMemory()
             {
-                if (this.compType != CompType.desktop)
+                if (this.compType != CompType.Desktop)
                 {
-                    if (showComment)
-                        Console.WriteLine("Upgrade possible only with desktops, sorry."); 
                     return;
                 }
 
                 if (Memory == maxDesktopMemory)
                 {
-                    if (showComment)
-                        Console.WriteLine("This desktop already has max memory " + maxDesktopMemory + " GB");
                     return;
                 }
 
-                Memory = maxDesktopMemory;
-                
-                if (showComment)
-                    Console.WriteLine("Desktop memory was upgraded to " + Memory + " GB");                                    
+                Memory = maxDesktopMemory;                                   
             }
 
             public void RepresentsOfComp()
@@ -100,61 +90,29 @@ namespace CSharp_Net_Module_1_4_Lab
         {
             Console.WriteLine("Hello World, lets manage org comps!");
 
-            int departmentsCount;
-            Computer[][] organisationDepartments;
+            var departmentsCount = 4;
+            var organisationDepartments = new Computer[departmentsCount][];
 
-            // Хотів уцікавити задачу щоб юзер сам вказував кількість і наповнення департаментів... але часу не вистачило
-            //Console.WriteLine("You can choose default data filling, or custom, enter your choise please:");
-            //Console.WriteLine("1. Default");
-            //Console.WriteLine("2. Custom");
-            //Console.WriteLine("Other - exit program....");
-
-            //var input = Console.ReadLine();
-            //int choise = int.Parse(input);
-
-            //switch (choise)
-            //{
-            //    case 1:
-            //        SetDefaultData(out departmentsCount, out organisationDepartments);
-            //        break;
-            //    case 2:
-            //        SetCustomData(out departmentsCount, out organisationDepartments);
-            //        break;
-            //    default:
-            //        return;
-            //}            
-
-            SetDefaultData(out departmentsCount, out organisationDepartments);
+            SetDefaultData(organisationDepartments);
             GetOrgStatistic(departmentsCount, organisationDepartments);
 
             for (var i = 0; i < departmentsCount; i++)
             {
                 for (var j = 0; j < organisationDepartments[i].Length; j++)
                 {
-                    organisationDepartments[i][j].UpgradeMemory(false);
+                    organisationDepartments[i][j].UpgradeMemory();
                 }
             }
 
             Console.WriteLine("Now we upgraded all desktops, and ...");
-
             GetOrgStatistic(departmentsCount, organisationDepartments);
         }
-
-        private static void SetCustomData(out int departmentsCount, out Computer[][] organisationDepartments)
+        private static void SetDefaultData(Computer[][] organisationDepartments)
         {
-            Console.WriteLine("So, lets fill our organisation)");
-            departmentsCount = 4; 
-            organisationDepartments = new Computer[departmentsCount][];
-        }
-
-        private static void SetDefaultData(out int departmentsCount, out Computer[][] organisationDepartments)
-        {
-            departmentsCount = 4;
-            organisationDepartments = new Computer[departmentsCount][];
-            organisationDepartments[0] = new Computer[] { new Computer(CompType.desktop), new Computer(CompType.desktop), new Computer(CompType.laptop), new Computer(CompType.laptop), new Computer(CompType.server) };
-            organisationDepartments[1] = new Computer[] { new Computer(CompType.laptop), new Computer(CompType.laptop), new Computer(CompType.laptop) };
-            organisationDepartments[2] = new Computer[] { new Computer(CompType.desktop), new Computer(CompType.desktop), new Computer(CompType.desktop), new Computer(CompType.laptop), new Computer(CompType.laptop) };
-            organisationDepartments[3] = new Computer[] { new Computer(CompType.desktop), new Computer(CompType.laptop), new Computer(CompType.server), new Computer(CompType.server) };
+            organisationDepartments[0] = new Computer[] { new Computer(CompType.Desktop), new Computer(CompType.Desktop), new Computer(CompType.Laptop), new Computer(CompType.Laptop), new Computer(CompType.Server) };
+            organisationDepartments[1] = new Computer[] { new Computer(CompType.Laptop), new Computer(CompType.Laptop), new Computer(CompType.Laptop) };
+            organisationDepartments[2] = new Computer[] { new Computer(CompType.Desktop), new Computer(CompType.Desktop), new Computer(CompType.Desktop), new Computer(CompType.Laptop), new Computer(CompType.Laptop) };
+            organisationDepartments[3] = new Computer[] { new Computer(CompType.Desktop), new Computer(CompType.Laptop), new Computer(CompType.Server), new Computer(CompType.Server) };
         }
 
         private static void GetOrgStatistic(int departmentsCount, Computer[][] organisationDepartments)
@@ -176,32 +134,9 @@ namespace CSharp_Net_Module_1_4_Lab
                     comp.RepresentsOfComp();
                     compCountsByType[(int)comp.compType]++;
 
-                    if (largestHddComp == null)
-                    {
-                        largestHddComp = comp;
-                    }
-                    else
-                    {
-                        if (comp.HDD > ((Computer)largestHddComp).HDD)
-                        {
-                            largestHddComp = comp;
-                        }
-                    }
+                    largestHddComp = CheckCurrentCompToLargestHDD(largestHddComp, comp);
 
-                    if (lowestProductivityComp == null)
-                    {
-                        lowestProductivityComp = comp;
-                    }
-                    else 
-                    {
-                        var locLowProdComp = (Computer)lowestProductivityComp;  
-
-                        if ((comp.CPU.Cores < locLowProdComp.CPU.Cores && comp.CPU.Frequency < locLowProdComp.CPU.Frequency) && comp.Memory < locLowProdComp.Memory)
-                        {
-                            lowestProductivityComp = comp;
-                        }    
-                    }
-
+                    lowestProductivityComp = CheckCurrentCompToLowestProductivity(lowestProductivityComp, comp);
                 }
 
                 Console.WriteLine("------------------END OF DEP ------------------------------");
@@ -223,6 +158,36 @@ namespace CSharp_Net_Module_1_4_Lab
             ((Computer)lowestProductivityComp).RepresentsOfComp();
         }
 
-        
+        private static Computer? CheckCurrentCompToLowestProductivity(Computer? lowestProductivityComp, Computer comp)
+        {
+            if (lowestProductivityComp == null)
+            {
+                return comp;
+            }
+            
+            var locLowProdComp = (Computer)lowestProductivityComp;
+
+            if ((comp.CPU.Cores < locLowProdComp.CPU.Cores && comp.CPU.Frequency < locLowProdComp.CPU.Frequency) && comp.Memory < locLowProdComp.Memory)
+            {
+                return comp;
+            }            
+
+            return lowestProductivityComp;
+        }
+
+        private static Computer? CheckCurrentCompToLargestHDD(Computer? largestHddComp, Computer comp)
+        {
+            if (largestHddComp == null)
+            {
+                return comp;
+            }
+
+            if (comp.HDD > ((Computer)largestHddComp).HDD)
+            {
+                return comp;
+            }       
+
+            return largestHddComp;
+        }
     }
 }
