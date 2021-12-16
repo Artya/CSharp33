@@ -4,7 +4,6 @@ namespace FarmerWolfGoatCabbage
 {
     partial class Program
     {
-
         static void Main(string[] args)
         {
             var farmerOnLeftBank = true;
