@@ -2,16 +2,15 @@
 
 namespace FarmerWolfGoatCabbage
 {
-    class Program
+    partial class Program
     {
-        enum Personages { Farmer = 0, Wolf, Goat, Cabbage };
 
         static void Main(string[] args)
         {
-            bool farmerOnLeftBank = true;
-            bool wolfOnLeftBank = true;
-            bool goatOnLeftBank = true;
-            bool cabbagOnLeftBank = true;
+            var farmerOnLeftBank = true;
+            var wolfOnLeftBank = true;
+            var goatOnLeftBank = true;
+            var cabbagOnLeftBank = true;
 
             ShowBanksState(farmerOnLeftBank, wolfOnLeftBank, goatOnLeftBank, cabbagOnLeftBank);
 
@@ -28,16 +27,15 @@ namespace FarmerWolfGoatCabbage
                 Console.WriteLine("8. Back: farmer");
                 Console.WriteLine("Other number to exit....");
 
-                var strChoise = Console.ReadLine();
-                var intChoise = int.Parse(strChoise);
+                var strChoiсe = Console.ReadLine();
+                var intChoiсe = int.Parse(strChoiсe);
 
-                switch (intChoise)
+                switch (intChoiсe)
                 {
                     case 1:
                         {
                             if (!CheckCorrectMovePersonageToBank(Personages.Farmer, false, farmerOnLeftBank))
                                 break;
-
 
                             if (!CheckCorrectMovePersonageToBank(Personages.Wolf, false, wolfOnLeftBank))
                                 break;
@@ -51,7 +49,6 @@ namespace FarmerWolfGoatCabbage
                             if (!CheckCorrectMovePersonageToBank(Personages.Farmer, false, farmerOnLeftBank))
                                 break;
 
-
                             if (!CheckCorrectMovePersonageToBank(Personages.Cabbage, false, cabbagOnLeftBank))
                                 break;
 
@@ -63,7 +60,6 @@ namespace FarmerWolfGoatCabbage
                         {
                             if (!CheckCorrectMovePersonageToBank(Personages.Farmer, false, farmerOnLeftBank))
                                 break;
-
 
                             if (!CheckCorrectMovePersonageToBank(Personages.Goat, false, goatOnLeftBank))
                                 break;
@@ -85,7 +81,6 @@ namespace FarmerWolfGoatCabbage
                             if (!CheckCorrectMovePersonageToBank(Personages.Farmer, true, farmerOnLeftBank))
                                 break;
 
-
                             if (!CheckCorrectMovePersonageToBank(Personages.Wolf, true, wolfOnLeftBank))
                                 break;
 
@@ -98,7 +93,6 @@ namespace FarmerWolfGoatCabbage
                             if (!CheckCorrectMovePersonageToBank(Personages.Farmer, true, farmerOnLeftBank))
                                 break;
 
-
                             if (!CheckCorrectMovePersonageToBank(Personages.Cabbage, true, cabbagOnLeftBank))
                                 break;
 
@@ -108,10 +102,8 @@ namespace FarmerWolfGoatCabbage
                         }
                     case 7:
                         {
-
                             if (!CheckCorrectMovePersonageToBank(Personages.Farmer, true, farmerOnLeftBank))
                                 break;
-
 
                             if (!CheckCorrectMovePersonageToBank(Personages.Goat, true, goatOnLeftBank))
                                 break;
@@ -162,8 +154,8 @@ namespace FarmerWolfGoatCabbage
 
         static void ShowBanksState(bool farmerState, bool wolfState, bool goatState, bool cabbageState)
         {
-            string leftBank = "";
-            string rightBank = "";
+            var leftBank = "";
+            var rightBank = "";
 
             if (farmerState)
             {
@@ -196,7 +188,6 @@ namespace FarmerWolfGoatCabbage
             Console.WriteLine("---------------------------------------------------------------------");
             Console.WriteLine("On left bank: " + (leftBank == "" ? "Nobody" : leftBank));
             Console.WriteLine("On right bank: " + (rightBank == "" ? "Nobody" : rightBank));
-
         }
 
         static string GetSeparator(string bankInfo)
