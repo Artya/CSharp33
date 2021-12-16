@@ -8,7 +8,6 @@ namespace Airport1
         static int[] maxStringLengthesInTable = new int[GetTableColumnsCount()];
         static void Main(string[] args)
         {
-
             const int tableAdditionPortion = 1;
 
             var airportTable = IncreaseOrCreateTable(null, tableAdditionPortion);
@@ -80,10 +79,14 @@ namespace Airport1
                 maxStringLengthesInTable[intColumn] = cellValue.Length;
             }
         }
-
+        /// <summary>
+        /// Creating new airport table or increase existing 
+        /// </summary>
+        /// <param name="currentTable">null or existing tabe</param>
+        /// <param name="rowCount">Table increasing step</param>
+        /// <returns>Airport table</returns>
         public static string[,] IncreaseOrCreateTable(string[,] currentTable, int rowCount)
         {
-
             var columnCount = GetTableColumnsCount();
             var currentTableRowCount = currentTable == null ? 0 : currentTable.GetLength(0);
             var newRowCount = currentTableRowCount + rowCount;
@@ -99,7 +102,6 @@ namespace Airport1
                 {
                     newtable[i, j] = currentTable[i, j];
                 }
-
             }
 
             return newtable;
@@ -143,7 +145,6 @@ namespace Airport1
             }
 
             WriteSpecificLine("=");
-
         }
 
         public static string[,] AddFlight(string [,] table)
@@ -197,7 +198,6 @@ namespace Airport1
 
                 if (parseToInt)
                 {
-
                     try
                     {
                         var result = int.Parse(input);
