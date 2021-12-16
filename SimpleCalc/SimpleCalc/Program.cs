@@ -2,12 +2,6 @@
 
 namespace SimpleCalc
 {
-    public enum operations { Multiplication = 1,
-                            Divide,
-                            Addition,
-                            Subtraction,
-                            Exponentiation };
-
     class Program
     {
         static void Main(string[] args)
