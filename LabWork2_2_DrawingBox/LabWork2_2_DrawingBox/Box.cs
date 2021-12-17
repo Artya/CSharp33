@@ -22,15 +22,15 @@ namespace LabWork2_2_DrawingBox
                 Console.WriteLine($"The X coordinate of the left top corner should be between 0 and { Console.WindowWidth - 6}");
                 return;
             }
-            if (X < 0 || Y < 0 || X > Console.WindowWidth - 6 || Y > Console.WindowHeight - 3)
+            if (Y < 0 || Y > Console.WindowHeight - 3)
             {
                 Console.WriteLine($"The Y coordinate of the left top corner should be between 0 and { Console.WindowHeight - 3}");
                 return;
             }
             if (X + Width > Console.WindowWidth) Width = Console.WindowWidth - X;
-            if (X < 5) Width = 5;
+            if (Width < 5) Width = 5;
             if (Y + Height > Console.WindowHeight) Height = Console.WindowHeight - Y;
-            if (Y < 5) Height = 3;
+            if (Height < 3) Height = 3;
 
             draw(X, Y, Width, Height, Symbol, Message);
         }
