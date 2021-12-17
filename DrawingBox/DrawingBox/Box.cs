@@ -81,7 +81,7 @@ namespace DrawingBox
             if (Box.height - 2 != rows)
                 topOffset = ((Box.height - rows) / 2) - 1;
 
-            if (Box.message.Length < Box.width -2)
+            if (Box.message.Length < Box.width - 2)
                 leftOffset = ((Box.width - 2) - Box.message.Length) / 2;
 
             var counter = 0;
@@ -98,7 +98,7 @@ namespace DrawingBox
                 }
             }
 
-            Console.SetCursorPosition(Box.x + 0, Box.y + Box.height);
+            Console.SetCursorPosition(Box.x,  Box.y + Box.height);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
         }
