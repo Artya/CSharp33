@@ -67,7 +67,10 @@ namespace DrawingBox
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
 
-            var messageArea = (Box.height - 2) * (Box.width - 2);
+            var messageHeight = Box.height - 2;
+            var messageWidth = Box.width - 2;
+            var messageArea = messageHeight * messageWidth;
+
             if (Box.message.Length > messageArea)
             {
                 Box.message = Box.message.Substring(0, messageArea - 3);
@@ -77,17 +80,17 @@ namespace DrawingBox
             var topOffset = 0;
             var leftOffset = 0;
 
-            var rows = Box.message.Length / (Box.width - 2);
-            if (Box.height - 2 != rows)
+            var rows = Box.message.Length / messageWidth;
+            if (messageHeight != rows)
                 topOffset = ((Box.height - rows) / 2) - 1;
 
-            if (Box.message.Length < Box.width - 2)
-                leftOffset = ((Box.width - 2) - Box.message.Length) / 2;
+            if (Box.message.Length < messageWidth)
+                leftOffset = (messageWidth - Box.message.Length) / 2;
 
             var counter = 0;
-            for (int yPosition = 1; yPosition <= messageArea / (Box.width - 2); yPosition++)
+            for (int yPosition = 1; yPosition <= messageArea / messageWidth; yPosition++)
             {
-                for (int xPosition = 1; xPosition <= messageArea / (Box.height - 2); xPosition++)
+                for (int xPosition = 1; xPosition <= messageArea / messageHeight; xPosition++)
                 {
                     if (counter == Box.message.Length)
                         break;
@@ -98,7 +101,7 @@ namespace DrawingBox
                 }
             }
 
-            Console.SetCursorPosition(Box.x,  Box.y + Box.height);
+            Console.SetCursorPosition(Box.x, Box.y + Box.height);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
         }
