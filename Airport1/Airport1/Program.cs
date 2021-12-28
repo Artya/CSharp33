@@ -13,6 +13,13 @@ namespace Airport1
             var airportTable = IncreaseOrCreateTable(null, tableAdditionPortion);
             FillTableTitle(airportTable);
 
+            var preDefinedFligtsCount = 15;
+
+            for (var i = 0; i < preDefinedFligtsCount; i++)
+            {
+                airportTable = AddRandomFlight(airportTable);
+            }
+
             while (true)
             {
                 Console.WriteLine(@$"Please choose operation.
@@ -52,6 +59,7 @@ namespace Airport1
         public static void FillTableTitle(string[,] table)
         {
             int rowToFill = 0;
+            SetValueToCell(table, rowToFill, TableCoulumns.RowNum, "#");
             SetValueToCell(table, rowToFill, TableCoulumns.FlightType, "Flight type");
             SetValueToCell(table, rowToFill, TableCoulumns.AirLine, "Airline");
             SetValueToCell(table, rowToFill, TableCoulumns.CityPort, "City / Port");
@@ -109,20 +117,31 @@ namespace Airport1
 
         public static void DisplayTable(string[,] airportTable)
         {
+            var tableWidth = Math.Min(GetTableWidth(), Console.LargestWindowWidth);
+
+            if (tableWidth > Console.WindowWidth || tableWidth > Console.BufferWidth)
+            {
+                Console.BufferWidth = tableWidth;
+                Console.WindowWidth = tableWidth;
+            }
+
             var rowCount = airportTable.GetLength(0);
             var columnCount = airportTable.GetLength(1);
-            //var columnWidhInSymbols = maxStringLengthesInTable + 2;
-            //var spaceLenths = new int[columnCount];
+            var tableBorderColor = ConsoleColor.Green;
 
-            WriteSpecificLine("=");
+            Console.ForegroundColor = tableBorderColor;
+
+            WriteHorisontalBorder('=', tableBorderColor);
 
             for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
             {
-                Console.Write(" | ");
+                if (rowIndex > 0)
+                    Console.ForegroundColor = airportTable[rowIndex, (int)TableCoulumns.FlightType] == FlightType.Arrival.ToString() ? ConsoleColor.Yellow : ConsoleColor.Blue;
+
+                WriteVerticalBorder(tableBorderColor);
 
                 for (var columnIndex = 0; columnIndex < columnCount; columnIndex++)
                 {
-
                     Console.Write(airportTable[rowIndex, columnIndex]);
 
                     var currentSpaceCount = maxStringLengthesInTable[columnIndex] - (airportTable[rowIndex, columnIndex] == null ? 0 : airportTable[rowIndex, columnIndex].Length);
@@ -130,24 +149,26 @@ namespace Airport1
                     for (var spaceIndex = 0; spaceIndex < (currentSpaceCount); spaceIndex++)
                         Console.Write(" ");
 
-                    Console.Write(" | ");
+                    WriteVerticalBorder(tableBorderColor);
                 }
 
                 Console.WriteLine();
 
                 if (rowIndex == 0)
                 {
-                    WriteSpecificLine("=");
+                    WriteHorisontalBorder('=', tableBorderColor);
                     continue;
                 }
 
-                WriteSpecificLine("-");
+                WriteHorisontalBorder('-', tableBorderColor);
             }
 
-            WriteSpecificLine("=");
+            WriteHorisontalBorder('=', tableBorderColor);
+
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public static string[,] AddFlight(string [,] table)
+        public static string[,] AddFlight(string[,] table)
         {
 
             table = IncreaseOrCreateTable(table, 1);
@@ -159,13 +180,15 @@ namespace Airport1
 
             var convertToInt = true;
             var convertToDate = true;
-            
+
+            SetValueToCell(table, currentRowIndex, TableCoulumns.RowNum, currentRowIndex.ToString());
+
             var flightType = (FlightType)int.Parse(GetDataFromUser(title, convertToInt, !convertToDate));
             SetValueToCell(table, currentRowIndex, TableCoulumns.FlightType, flightType.ToString());
 
             var dateTime = GetDataFromUser("Enter flight date/time in format dd/mm/yy hh:mm", !convertToInt, convertToDate);
             SetValueToCell(table, currentRowIndex, TableCoulumns.DateAndTime, dateTime.ToString());
-           
+
             var flightNumber = GetDataFromUser("Enter flight number");
             SetValueToCell(table, currentRowIndex, TableCoulumns.FlightNumber, flightNumber);
 
@@ -187,10 +210,10 @@ namespace Airport1
             return table;
         }
 
-        public static string GetDataFromUser(string title, bool parseToInt = false, bool parseToDate = false) 
+        public static string GetDataFromUser(string title, bool parseToInt = false, bool parseToDate = false)
         {
-            
-            while (true) 
+
+            while (true)
             {
                 Console.WriteLine(title);
 
@@ -207,7 +230,7 @@ namespace Airport1
                     {
                         Console.WriteLine($"Error converting {input} to number, try again.");
                         continue;
-                    }                    
+                    }
                 }
 
                 if (parseToDate)
@@ -217,15 +240,15 @@ namespace Airport1
                         var result = DateTime.Parse(input);
                         return result.ToString();
                     }
-                    catch 
+                    catch
                     {
                         Console.WriteLine($"Error converting {input} to Date / Time, try again.");
                         continue;
-                    }   
+                    }
                 }
 
                 return input;
-            } 
+            }
         }
         public static void ShowArrivals()
         {
@@ -263,16 +286,60 @@ namespace Airport1
             return width;
         }
 
-        public static void WriteSpecificLine(string symbol)
+        public static void WriteHorisontalBorder(char symbol, ConsoleColor tableBorderColor)
         {
             var tableWidth = GetTableWidth();
+            var tempColor = Console.ForegroundColor;
+            Console.ForegroundColor = tableBorderColor;
+            Console.WriteLine(" " + new string(symbol, tableWidth - 2) + " ");
+            Console.ForegroundColor = tempColor;
+        }
 
-            for (var i = 0; i < tableWidth; i++)
-            {
-                Console.Write(symbol);
-            }
+        public static void WriteVerticalBorder(ConsoleColor tableBorderColor)
+        {
+            var tempColor = Console.ForegroundColor;
+            Console.ForegroundColor = tableBorderColor;
+            Console.Write(" | ");
+            Console.ForegroundColor = tempColor;
+        }
 
-            Console.WriteLine();
+        public static string[,] AddRandomFlight(string[,] table)
+        {
+            var rand = new Random();
+
+            table = IncreaseOrCreateTable(table, 1);
+            var rowToFill = table.GetLength(0) - 1;
+            SetValueToCell(table, rowToFill, TableCoulumns.RowNum, rowToFill.ToString());
+
+            var flightType = (FlightType)rand.Next(1, 3);
+            SetValueToCell(table, rowToFill, TableCoulumns.FlightType, flightType.ToString());
+
+            var dateTime = DateTime.Now;
+            dateTime = dateTime.AddDays(rand.Next(1, 365));
+            dateTime = dateTime.AddHours(rand.Next(1, 25));
+            dateTime = dateTime.AddMinutes(rand.Next(1, 60));
+            SetValueToCell(table, rowToFill, TableCoulumns.DateAndTime, dateTime.ToString());
+
+            var flightNumber = rand.Next(100, 100000);
+            SetValueToCell(table, rowToFill, TableCoulumns.FlightNumber, flightNumber.ToString());
+
+            var cityPort = (Airpots)rand.Next(0, Enum.GetValues(typeof(Airpots)).Length);
+            SetValueToCell(table, rowToFill, TableCoulumns.CityPort, cityPort.ToString());
+
+            var fligtStatus = (FlightStatuses)rand.Next(0, Enum.GetValues(typeof(FlightStatuses)).Length);
+            SetValueToCell(table, rowToFill, TableCoulumns.FightStatus, fligtStatus.ToString());
+
+            var terminals = "ABCDEF";
+            var terminal = terminals[rand.Next(0, terminals.Length)];
+            SetValueToCell(table, rowToFill, TableCoulumns.Terminal, terminal.ToString());
+
+            var gate = rand.Next(1, 50);
+            SetValueToCell(table, rowToFill, TableCoulumns.Gate, gate.ToString());
+
+            var airLine = (Airlines)rand.Next(0, Enum.GetValues(typeof(Airlines)).Length);
+            SetValueToCell(table, rowToFill, TableCoulumns.AirLine, airLine.ToString());
+
+            return table;
         }
     }
 }

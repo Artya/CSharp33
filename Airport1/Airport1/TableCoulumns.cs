@@ -2,6 +2,7 @@
 {
     public enum TableCoulumns 
     {
+        RowNum,
         FlightType,
         DateAndTime,
         FlightNumber, 
