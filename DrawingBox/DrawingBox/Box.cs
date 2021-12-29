@@ -88,9 +88,9 @@ namespace DrawingBox
                 leftOffset = (messageWidth - Box.message.Length) / 2;
 
             var counter = 0;
-            for (int yPosition = 1; yPosition <= messageArea / messageWidth; yPosition++)
+            for (int yPosition = 1; yPosition <= messageHeight; yPosition++)
             {
-                for (int xPosition = 1; xPosition <= messageArea / messageHeight; xPosition++)
+                for (int xPosition = 1; xPosition <= messageWidth; xPosition++)
                 {
                     if (counter == Box.message.Length)
                         break;
