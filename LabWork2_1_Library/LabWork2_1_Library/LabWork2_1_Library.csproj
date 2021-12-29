@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookInfo.cs" />
     <Compile Include="ILibraryUser.cs" />
     <Compile Include="LibraryUser.cs" />
     <Compile Include="Program.cs" />

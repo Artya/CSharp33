@@ -10,6 +10,7 @@ namespace LabWork2_1_Library
     {
         private string[] bookList;
         private static int NextId = 0;
+        private int bookCount = 0;
         public int Id { get; }
         public string FirstName { get; }
         public string LastName { get; }
@@ -48,15 +49,12 @@ namespace LabWork2_1_Library
         }
         public void AddBook(string book)
         {
-            var quantity = 0;
-            foreach (var item in bookList)
-            {
-                if (item == book) return;
-                if (item == null) break;
-                quantity++;
-            }
-            if (quantity >= BookLimit) return;
-            bookList[quantity] = book;
+            if (bookCount == BookLimit)
+                return;
+            if (Array.IndexOf(bookList, book) >= 0)
+                return;
+            bookList[bookCount] = book;
+            bookCount++;
         }
         public void RemoveBook(string book)
         {
@@ -65,15 +63,14 @@ namespace LabWork2_1_Library
                 Console.WriteLine("There is no such book in the library.");
                 return; 
             }
-            for (int index = Array.IndexOf(bookList, book); index < bookList.Length - 1; index++)
-            {
-                bookList[index] = bookList[index+1];
-            }
+            var bookPosition = Array.IndexOf(bookList, book);
+            Array.Copy(bookList, bookPosition + 1, bookList, bookPosition, bookList.Length - bookPosition - 1);
             bookList[bookList.Length-1] = null;
+            bookCount--;
         }
         public string BookInfo(int index)
         {
-            if (bookList.Length-1 < index || index <0)
+            if (bookList.Length - 1 < index || index < 0)
             {
                 return "Index is out of range.";
             }
@@ -81,13 +78,7 @@ namespace LabWork2_1_Library
         }
         public int BooksCount()
         {
-            var quantity = 0;
-            foreach (var item in bookList)
-            {
-                if (item == null) break;
-                quantity++;
-            }
-            return quantity;
+             return bookCount;
         }
     }
 }
