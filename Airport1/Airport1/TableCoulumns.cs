@@ -9,7 +9,7 @@
         CityPort,
         AirLine,
         Terminal,
-        FightStatus,
+        FlightStatus,
         Gate
     }
 }
