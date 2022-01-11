@@ -51,8 +51,9 @@ partial class Program
                 new string[] { "A", "AF12", "Lviv", "31/12/2021 08:35", "WizzAir", "6", "CANCELED", "" },
             };
 
-        Console.SetBufferSize(252, 52);
-        Console.SetWindowSize(252, 52);
+
+        Console.SetWindowSize(226, 52);
+        Console.SetBufferSize(226, 52);
         Console.CursorVisible = false;
 
         consoleBufferChar = new Char[52][];
@@ -60,9 +61,9 @@ partial class Program
 
         for (int i = 0; i < consoleBufferChar.GetLength(0); i++)
         {
-            consoleBufferChar[i] = new char[252];
+            consoleBufferChar[i] = new char[226];
             Array.Fill(consoleBufferChar[i], whiteSpace);
-            consoleBufferColor[i] = new (ConsoleColor, ConsoleColor)[252];
+            consoleBufferColor[i] = new (ConsoleColor, ConsoleColor)[226];
             Array.Fill(consoleBufferColor[i], (ConsoleColor.Black, ConsoleColor.White));
         }
 
@@ -73,11 +74,12 @@ partial class Program
         var departureFirstItemIndex = 0;
         var arrivalFirstItemIndex = 0;
         var emergencyMessage = "";
+        var flightInfoRowLength = 111;
 
         StartFieldsOutput();
-        DisplayFlightsTable(departureFlights, 2, 5, 0, panelFlightsQuantity);
-        DisplayFlightsTable(arrivalFlights, 131, 5, 0, panelFlightsQuantity);
-        DisplayOrMoveBorders(BorderTypeEnum.Double, 0, 4, 120, 1);
+        DisplayFlightsTable(departureFlights, 1, 5, 0, panelFlightsQuantity);
+        DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, 0, panelFlightsQuantity);
+        DisplayOrMoveBorders(BorderTypeEnum.Double, 0, 4, flightInfoRowLength, 1);
         var input = new ConsoleKeyInfo();
         do
         {
@@ -90,7 +92,7 @@ partial class Program
                     {
                         var borderOldRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
                         var borderNewRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
-                        DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, 120, 1, true, 129, borderOldRowPos);
+                        DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, flightInfoRowLength, 1, true, flightInfoRowLength + 2, borderOldRowPos);
                         activeFlights = FlightTypeEnum.Departure;
                         break;
                     }
@@ -98,7 +100,7 @@ partial class Program
                     {
                         var borderOldRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
                         var borderNewRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
-                        DisplayOrMoveBorders(BorderTypeEnum.Double, 129, borderNewRowPos, 120, 1, true, 0, borderOldRowPos);
+                        DisplayOrMoveBorders(BorderTypeEnum.Double, flightInfoRowLength + 2, borderNewRowPos, flightInfoRowLength, 1, true, 0, borderOldRowPos);
                         activeFlights = FlightTypeEnum.Arrival;
                     }
                     break;
@@ -107,7 +109,7 @@ partial class Program
                     {
                         var borderOldRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
                         var borderNewRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
-                        DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, 120, 1, true, 129, borderOldRowPos);
+                        DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, flightInfoRowLength, 1, true, flightInfoRowLength + 2, borderOldRowPos);
                         activeFlights = FlightTypeEnum.Departure;
                     }
                     break;
@@ -116,7 +118,7 @@ partial class Program
                     {
                         var borderOldRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
                         var borderNewRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
-                        DisplayOrMoveBorders(BorderTypeEnum.Double, 129, borderNewRowPos, 120, 1, true, 0, borderOldRowPos);
+                        DisplayOrMoveBorders(BorderTypeEnum.Double, flightInfoRowLength + 2, borderNewRowPos, flightInfoRowLength, 1, true, 0, borderOldRowPos);
                         activeFlights = FlightTypeEnum.Arrival;
                     }
                     break;
@@ -130,12 +132,12 @@ partial class Program
                                 if (activeDepartureIndex - departureFirstItemIndex + 1 < panelFlightsQuantity)
                                 {
                                     var borderNewRowPos = 4 + 2 * (activeDepartureIndex + 1 - departureFirstItemIndex);
-                                    DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, 120, 1, true, 0, borderNewRowPos - 2);
+                                    DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, flightInfoRowLength, 1, true, 0, borderNewRowPos - 2);
                                 }
                                 else
                                 {
                                     departureFirstItemIndex += 1;
-                                    DisplayFlightsTable(departureFlights, 2, 5, departureFirstItemIndex, panelFlightsQuantity);
+                                    DisplayFlightsTable(departureFlights, 1, 5, departureFirstItemIndex, panelFlightsQuantity);
                                 }
                                 activeDepartureIndex += 1;
                                 break;
@@ -145,12 +147,12 @@ partial class Program
                                 if (activeArrivalIndex - arrivalFirstItemIndex + 1 < panelFlightsQuantity)
                                 {
                                     var borderNewRowPos = 4 + 2 * (activeArrivalIndex + 1 - arrivalFirstItemIndex);
-                                    DisplayOrMoveBorders(BorderTypeEnum.Double, 129, borderNewRowPos, 120, 1, true, 129, borderNewRowPos - 2);
+                                    DisplayOrMoveBorders(BorderTypeEnum.Double, flightInfoRowLength + 2, borderNewRowPos, flightInfoRowLength, 1, true, flightInfoRowLength + 2, borderNewRowPos - 2);
                                 }
                                 else
                                 {
                                     arrivalFirstItemIndex += 1;
-                                    DisplayFlightsTable(arrivalFlights, 131, 5, arrivalFirstItemIndex, panelFlightsQuantity);
+                                    DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, arrivalFirstItemIndex, panelFlightsQuantity);
                                 }
                                 activeArrivalIndex += 1;
                                 break;
@@ -169,12 +171,12 @@ partial class Program
                                 if (activeDepartureIndex != departureFirstItemIndex)
                                 {
                                     var borderNewRowPos = 4 + 2 * (activeDepartureIndex - 1 - departureFirstItemIndex);
-                                    DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, 120, 1, true, 0, borderNewRowPos + 2);
+                                    DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, flightInfoRowLength, 1, true, 0, borderNewRowPos + 2);
                                 }
                                 else
                                 {
                                     departureFirstItemIndex -= 1;
-                                    DisplayFlightsTable(departureFlights, 2, 5, departureFirstItemIndex, panelFlightsQuantity);
+                                    DisplayFlightsTable(departureFlights, 1, 5, departureFirstItemIndex, panelFlightsQuantity);
                                 }
                                 activeDepartureIndex -= 1;
                                 break;
@@ -184,12 +186,12 @@ partial class Program
                                 if (activeArrivalIndex != arrivalFirstItemIndex)
                                 {
                                     var borderNewRowPos = 4 + 2 * (activeArrivalIndex - 1 - arrivalFirstItemIndex);
-                                    DisplayOrMoveBorders(BorderTypeEnum.Double, 129, borderNewRowPos, 120, 1, true, 129, borderNewRowPos + 2);
+                                    DisplayOrMoveBorders(BorderTypeEnum.Double, flightInfoRowLength + 2, borderNewRowPos, flightInfoRowLength, 1, true, flightInfoRowLength + 2, borderNewRowPos + 2);
                                 }
                                 else
                                 {
                                     arrivalFirstItemIndex -= 1;
-                                    DisplayFlightsTable(arrivalFlights, 131, 5, arrivalFirstItemIndex, panelFlightsQuantity);
+                                    DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, arrivalFirstItemIndex, panelFlightsQuantity);
                                 }
                                 activeArrivalIndex -= 1;
                                 break;
@@ -203,12 +205,12 @@ partial class Program
                         switch (activeFlights)
                         {
                             case FlightTypeEnum.Departure:
-                                EditFlight(departureFlights, activeDepartureIndex, 2, 5 + 2 * (activeDepartureIndex - departureFirstItemIndex));
-                                DisplayFlightsTable(departureFlights, 2, 5, departureFirstItemIndex, panelFlightsQuantity);
+                                EditFlight(departureFlights, activeDepartureIndex, 1, 5 + 2 * (activeDepartureIndex - departureFirstItemIndex));
+                                DisplayFlightsTable(departureFlights, 1, 5, departureFirstItemIndex, panelFlightsQuantity);
                                 break;
                             case FlightTypeEnum.Arrival: 
-                                EditFlight(arrivalFlights, activeArrivalIndex, 131, 5 + 2 * (activeArrivalIndex - arrivalFirstItemIndex));
-                                DisplayFlightsTable(arrivalFlights, 131, 5, arrivalFirstItemIndex, panelFlightsQuantity);
+                                EditFlight(arrivalFlights, activeArrivalIndex, flightInfoRowLength + 3, 5 + 2 * (activeArrivalIndex - arrivalFirstItemIndex));
+                                DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, arrivalFirstItemIndex, panelFlightsQuantity);
                                 break;
                             default:
                                 break;
@@ -222,11 +224,11 @@ partial class Program
                         switch (activeFlights)
                         {
                             case FlightTypeEnum.Departure:
-                                deleteDialogColumn = 2 + 90;
+                                deleteDialogColumn = 1 + 80;
                                 deleteDialogRow = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex) + 1;
                                 break;
                             case FlightTypeEnum.Arrival:
-                                deleteDialogColumn = 131 + 90;
+                                deleteDialogColumn = (flightInfoRowLength + 3) + 80;
                                 deleteDialogRow = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex) + 1;
                                 break;
                             default:
@@ -290,14 +292,14 @@ partial class Program
                         switch (activeFlights)
                         {
                             case FlightTypeEnum.Departure:
-                                DisplayFlightsTable(departureFlights, 2, 5, departureFirstItemIndex, panelFlightsQuantity);
+                                DisplayFlightsTable(departureFlights, 1, 5, departureFirstItemIndex, panelFlightsQuantity);
                                 borderNewRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
-                                DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, rowLength, 1, true, 0, deleteDialogRow - 1);
+                                DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, flightInfoRowLength, 1, true, 0, deleteDialogRow - 1);
                                 break;
                             case FlightTypeEnum.Arrival:
-                                DisplayFlightsTable(arrivalFlights, 131, 5, arrivalFirstItemIndex, panelFlightsQuantity);
+                                DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, arrivalFirstItemIndex, panelFlightsQuantity);
                                 borderNewRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
-                                DisplayOrMoveBorders(BorderTypeEnum.Double, 129, borderNewRowPos, rowLength, 1, true, 129, deleteDialogRow - 1);
+                                DisplayOrMoveBorders(BorderTypeEnum.Double, flightInfoRowLength + 2, borderNewRowPos, flightInfoRowLength, 1, true, flightInfoRowLength + 2, deleteDialogRow - 1);
                                 break;
                             default:
                                 break;
@@ -316,11 +318,11 @@ partial class Program
                                 borderOldRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
                                 activeDepartureIndex = departureFlights.GetLength(0) - 1;
                                 if (departureFlights.GetLength(0) > panelFlightsQuantity) departureFirstItemIndex = departureFlights.GetLength(0) - panelFlightsQuantity;
-                                DisplayFlightsTable(departureFlights, 2, 5, departureFirstItemIndex, panelFlightsQuantity);
+                                DisplayFlightsTable(departureFlights, 1, 5, departureFirstItemIndex, panelFlightsQuantity);
                                 borderNewRowPos = 4 + 2 * (activeDepartureIndex - departureFirstItemIndex);
-                                if (borderNewRowPos != borderOldRowPos) DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, 120, 1, true, 0, borderOldRowPos);
-                                EditFlight(departureFlights, activeDepartureIndex, 2, 5 + 2 * (activeDepartureIndex - departureFirstItemIndex));
-                                DisplayFlightsTable(departureFlights, 2, 5, departureFirstItemIndex, panelFlightsQuantity);
+                                if (borderNewRowPos != borderOldRowPos) DisplayOrMoveBorders(BorderTypeEnum.Double, 0, borderNewRowPos, flightInfoRowLength, 1, true, 0, borderOldRowPos);
+                                EditFlight(departureFlights, activeDepartureIndex, 1, 5 + 2 * (activeDepartureIndex - departureFirstItemIndex));
+                                DisplayFlightsTable(departureFlights, 1, 5, departureFirstItemIndex, panelFlightsQuantity);
                                 break;
                             case FlightTypeEnum.Arrival:
                                 Array.Resize(ref arrivalFlights, arrivalFlights.GetLength(0) + 1);
@@ -328,11 +330,12 @@ partial class Program
                                 borderOldRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
                                 activeArrivalIndex = arrivalFlights.GetLength(0) - 1;
                                 if (arrivalFlights.GetLength(0) > panelFlightsQuantity) arrivalFirstItemIndex = arrivalFlights.GetLength(0) - panelFlightsQuantity;
-                                DisplayFlightsTable(arrivalFlights, 131, 5, arrivalFirstItemIndex, panelFlightsQuantity);
+                                DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, arrivalFirstItemIndex, panelFlightsQuantity);
                                 borderNewRowPos = 4 + 2 * (activeArrivalIndex - arrivalFirstItemIndex);
-                                if (borderNewRowPos != borderOldRowPos) DisplayOrMoveBorders(BorderTypeEnum.Double, 129, borderNewRowPos, 120, 1, true, 129, borderOldRowPos);
-                                EditFlight(arrivalFlights, activeArrivalIndex, 131, 5 + 2 * (activeArrivalIndex - arrivalFirstItemIndex));
-                                DisplayFlightsTable(arrivalFlights, 131, 5, arrivalFirstItemIndex, panelFlightsQuantity);
+                                if (borderNewRowPos != borderOldRowPos) 
+                                    DisplayOrMoveBorders(BorderTypeEnum.Double, flightInfoRowLength + 3, borderNewRowPos, flightInfoRowLength, 1, true, flightInfoRowLength + 3, borderOldRowPos);
+                                EditFlight(arrivalFlights, activeArrivalIndex, flightInfoRowLength + 3, 5 + 2 * (activeArrivalIndex - arrivalFirstItemIndex));
+                                DisplayFlightsTable(arrivalFlights, flightInfoRowLength + 3, 5, arrivalFirstItemIndex, panelFlightsQuantity);
                                 break;
                             default:
                                 break;
@@ -343,21 +346,21 @@ partial class Program
                     {
                         var searchWindowResultRowsQuantity = 5;
                         SearchFlight(departureFlights, 0, FlightTypeEnum.Departure, searchWindowResultRowsQuantity);
-                        OutputToConsoleFromBufferArray(65, 16, 124, 6 + searchWindowResultRowsQuantity * 2 - 1);
+                        OutputToConsoleFromBufferArray(52, 16, 124, 6 + searchWindowResultRowsQuantity * 2 - 1);
                     }
                     break;
                 case ConsoleKey.F4:
                     {
                         var searchWindowResultRowsQuantity = 5;
                         SearchFlight(arrivalFlights, 0, FlightTypeEnum.Arrival);
-                        OutputToConsoleFromBufferArray(65, 16, 124, 6 + searchWindowResultRowsQuantity * 2 - 1);
+                        OutputToConsoleFromBufferArray(52, 16, 124, 6 + searchWindowResultRowsQuantity * 2 - 1);
                     }
                     break;
                 case ConsoleKey.Spacebar:
                     {
                         emergencyMessage = GetEmergencyInformation(emergencyMessage);
                         Console.CursorVisible = false;
-                        OutputToConsoleFromBufferArray(26, 16, 202, 3);
+                        OutputToConsoleFromBufferArray(13, 16, 202, 3);
                         OutputEmergencyMessage(emergencyMessage);
                     }
                     break;
@@ -411,16 +414,19 @@ partial class Program
     }
     public static void StartFieldsOutput()
     {
-        var top = "                                                  -= DEPARTURES =-                                                                                                         -= Arrivals =-                                                                   ";
-        var topUnderline = "____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________";
-        var underTop = "  Terminal |Flight №   |City/Port            |Date Time        |Airline            |Gate |Status      |                 |         |Terminal |Flight №   |City/Port            |Date Time        |Airline            |Gate |Status      |                 |  ";
-        var underTopUnderline = "============================================================================================================================================================================================================================================================";
-        var downMenu = "                                                 Esc - EXIT           F2 - ADD FLIGHT            F3 - SEARCH(DEPARTURE)            F4 - SEARCH(ARRIVAL)             Enter - EDIT             Delete - DELETE                                               ";
+        var top = "                                                 -= DEPARTURES =-                                                                                                   -= Arrivals =-                                               ";
+        var topUnderline = "_________________________________________________________________________________________________________________________________________________________________________________________________________________________________";
+        var underTop = " Terminal|Flight №  |City/Port           |Date Time       |Airline           |Gate|Status     |                | |Terminal|Flight №  |City/Port           |Date Time       |Airline           |Gate|Status     |                |";
+        var underTopUnderline = "=================================================================================================================================================================================================================================";
+        var downMenu = "               Esc - EXIT           F2 - ADD FLIGHT            F3 - SEARCH(DEPARTURE)            F4 - SEARCH(ARRIVAL)             Enter - EDIT             Delete - DELETE            SPACE - EMERGENCY MESSAGE                  ";
 
         Console.SetCursorPosition(0, 0);
         WriteToConsole(top, true, ConsoleColor.Black, ConsoleColor.White);
+        Console.SetCursorPosition(0, 1);
         WriteToConsole(topUnderline, true, ConsoleColor.Black, ConsoleColor.Gray);
+        Console.SetCursorPosition(0, 2);
         WriteToConsole(underTop, true, ConsoleColor.Black, ConsoleColor.White);
+        Console.SetCursorPosition(0, 3);
         WriteToConsole(underTopUnderline, true, ConsoleColor.Black, ConsoleColor.Gray);
         Console.SetCursorPosition(0, 51);
         WriteToConsole(downMenu, true, ConsoleColor.Black, ConsoleColor.White);
@@ -500,9 +506,9 @@ partial class Program
                 Console.SetCursorPosition(index, rowPos + (i - startItem) * 2);
                 WriteToConsole(flightsArray[i][j].PadRight(fieldsWidth[j]), writeToBuffer, ConsoleColor.Black, foregroundColor);
                 index += fieldsWidth[j];
-                Console.SetCursorPosition(index + 1, rowPos + (i - startItem) * 2);
+                Console.SetCursorPosition(index, rowPos + (i - startItem) * 2);
                 WriteToConsole("|", writeToBuffer, ConsoleColor.Black, ConsoleColor.Gray);
-                index += 2;
+                index ++;
             }
         }
     }
@@ -562,7 +568,7 @@ partial class Program
         WriteToConsole(downRight, writeToBuffer, foreground: ConsoleColor.White);
     }
 
-    public static (ConsoleKey, string) EditField(int columnPosition, int rowPosition, int fieldMaxLength, FieldTypesEnum fieldWritingType, string[] possibleElements, string field = "")
+    public static (string, ConsoleKey) EditField(int columnPosition, int rowPosition, int fieldMaxLength, FieldTypesEnum fieldWritingType, string[] possibleElements, string field = "")
     {
         var keyPressed = new ConsoleKeyInfo();
 
@@ -618,7 +624,7 @@ partial class Program
 
         Console.CursorVisible = false;
 
-        return (keyPressed.Key, field);
+        return (field, keyPressed.Key);
     }
 
     private static (string, ConsoleKeyInfo) GetNumberField(int columnPosition, int rowPosition, string field, int fieldMaxLength)
@@ -1013,7 +1019,8 @@ partial class Program
         } while (keyPressed.Key != ConsoleKey.LeftArrow &&
                  keyPressed.Key != ConsoleKey.RightArrow &&
                  keyPressed.Key != ConsoleKey.Tab &&
-                 keyPressed.Key != ConsoleKey.Escape);
+                 keyPressed.Key != ConsoleKey.Escape &&
+                 keyPressed.Key != ConsoleKey.Enter);
 
         return (possibleElements[activeElement], keyPressed);
     }
@@ -1029,7 +1036,7 @@ partial class Program
 
         do
         {
-            (keyPressed, flightsArray[activeFlight][(int)activeField]) = EditField(columnPos, rowPos, fieldsWidth[(int)activeField], fieldWritingType, possibleElements, flightsArray[activeFlight][(int)activeField]);
+            (flightsArray[activeFlight][(int)activeField], keyPressed) = EditField(columnPos, rowPos, fieldsWidth[(int)activeField], fieldWritingType, possibleElements, flightsArray[activeFlight][(int)activeField]);
 
             if (activeField == FieldsEnum.FlightStatus)
             {
@@ -1041,12 +1048,12 @@ partial class Program
                 }
                 else
                     flightsArray[activeFlight][(int)FieldsEnum.TimeOfExpectance] = "";
-                Console.SetCursorPosition(columnPos + fieldsWidth[((int)activeField)] + 2, rowPos);
+                Console.SetCursorPosition(columnPos + fieldsWidth[((int)activeField)] + 1, rowPos);
                 Console.ResetColor();
                 Console.Write(flightsArray[activeFlight][(int)FieldsEnum.TimeOfExpectance].PadRight(fieldsWidth[(int)FieldsEnum.TimeOfExpectance]));
             }
 
-            if (keyPressed == ConsoleKey.Enter)
+            if (keyPressed == ConsoleKey.Enter && activeField != FieldsEnum.FlightStatus)
                 break;
             if (keyPressed == ConsoleKey.Escape)
                 break;
@@ -1055,7 +1062,7 @@ partial class Program
             if (keyPressed == ConsoleKey.LeftArrow && activeField != FieldsEnum.Terminal)
             {
                     activeField--;
-                    columnPos -= fieldsWidth[(int)activeField] + 2;
+                    columnPos -= fieldsWidth[(int)activeField] + 1;
             }
 
             if ((keyPressed == ConsoleKey.RightArrow || keyPressed == ConsoleKey.Tab) && 
@@ -1064,7 +1071,7 @@ partial class Program
                 if ((activeField == FieldsEnum.FlightStatus && flightsArray[activeFlight][((int)FieldsEnum.TimeOfExpectance)] != "") ||
                     (activeField < FieldsEnum.FlightStatus))
                 {
-                    columnPos += fieldsWidth[((int)activeField)] + 2;
+                    columnPos += fieldsWidth[((int)activeField)] + 1;
                     activeField++;
                 }
             }
@@ -1123,7 +1130,7 @@ partial class Program
     {
         DisplaySearchWindow(flightsType, searchResultWindowRowsQuantity);
 
-        var searchFieldsPosition = new int[] { 78, 102, 132, 186 };
+        var searchFieldsPosition = new int[] { 65, 89, 119, 173 };
         var searchFielrsWidth = new int[] { 10, 20, 16, 1 };
         var searchResultArray = new string[][] { };
         var searchFieldsValue = new string[] { "", "", DateTime.Now.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture), "" };
@@ -1140,7 +1147,7 @@ partial class Program
 
         do
         {
-            (keyPressed, fieldValue) = EditField(searchFieldsPosition[((int)activeField)], 19, searchFielrsWidth[(int)activeField], activeFieldTypeArray[((int)activeField)], new string[] { }, searchFieldsValue[((int)activeField)]);
+            (fieldValue, keyPressed) = EditField(searchFieldsPosition[((int)activeField)], 19, searchFielrsWidth[(int)activeField], activeFieldTypeArray[((int)activeField)], new string[] { }, searchFieldsValue[((int)activeField)]);
             if (keyPressed == ConsoleKey.Escape)
                 break;
             searchFieldsValue[((int)activeField)] = fieldValue;
@@ -1171,7 +1178,7 @@ partial class Program
                 default:
                     break;
             }
-            DisplayFlightsTable(searchResultArray, 66, 21, startFlightToDisplay, searchResultWindowRowsQuantity, false);
+            DisplayFlightsTable(searchResultArray, 53, 21, startFlightToDisplay, searchResultWindowRowsQuantity, false);
         } while (true);
 
     }
@@ -1210,11 +1217,11 @@ partial class Program
 
     private static void DisplaySearchWindow(FlightTypeEnum flightsType, int searchResultWindowRowsQuantity)
     {
-        DisplayOrMoveBorders(BorderTypeEnum.Double, 65, 16, 122, 4 + searchResultWindowRowsQuantity * 2 - 1, false, fillInside: true);
-        DisplayOrMoveBorders(BorderTypeEnum.Single, 65, 20, 122, searchResultWindowRowsQuantity * 2 - 1, false);
-        DisplayOrMoveBorders(BorderTypeEnum.Double, 65, 18, 122, 2 + searchResultWindowRowsQuantity * 2 - 1, false);
-        DisplayOrMoveBorders(BorderTypeEnum.Double, 65, 16, 122, 4 + searchResultWindowRowsQuantity * 2 - 1, false);
-        Console.SetCursorPosition(66, 17);
+        DisplayOrMoveBorders(BorderTypeEnum.Double, 52, 16, 122, 4 + searchResultWindowRowsQuantity * 2 - 1, false, fillInside: true);
+        DisplayOrMoveBorders(BorderTypeEnum.Single, 52, 20, 122, searchResultWindowRowsQuantity * 2 - 1, false);
+        DisplayOrMoveBorders(BorderTypeEnum.Double, 52, 18, 122, 2 + searchResultWindowRowsQuantity * 2 - 1, false);
+        DisplayOrMoveBorders(BorderTypeEnum.Double, 52, 16, 122, 4 + searchResultWindowRowsQuantity * 2 - 1, false);
+        Console.SetCursorPosition(53, 17);
         Console.BackgroundColor = ConsoleColor.DarkGray;
         Console.ForegroundColor = ConsoleColor.Black;
         switch (flightsType)
@@ -1226,31 +1233,31 @@ partial class Program
                 Console.Write("                                      S E A R C H       A R R I V A L S       B Y :                                       ");
                 break;
         }
-        Console.SetCursorPosition(66, 19);
+        Console.SetCursorPosition(53, 19);
         Console.Write(" Flight № :");
-        Console.SetCursorPosition(87, 19);
+        Console.SetCursorPosition(74, 19);
         Console.Write(" City (Port) :");
-        Console.SetCursorPosition(111, 19);
+        Console.SetCursorPosition(98, 19);
         Console.Write(" Date of Departure :");
-        Console.SetCursorPosition(150, 19);
+        Console.SetCursorPosition(137, 19);
         Console.Write(" Search All (1 Hour Before/After) :");
     }
     private static string GetEmergencyInformation(string emergencyMessage)
     {
         var emergenceMessageMaxLength = Console.WindowWidth * 2;
         var emergencyTemporaryMessage = emergencyMessage;
-        DisplayOrMoveBorders(BorderTypeEnum.Double, 26, 16, 200, 1, false, fillInside: true);
-        Console.SetCursorPosition(27, 17);
+        DisplayOrMoveBorders(BorderTypeEnum.Double, 13, 16, 200, 1, false, fillInside: true);
+        Console.SetCursorPosition(14, 17);
         Console.BackgroundColor = ConsoleColor.DarkGray;
         Console.ForegroundColor = ConsoleColor.Black;
         Console.Write("Emergency Message:");
         var startPosition = 0;
         var cursorPosition = 0;
-        Console.SetCursorPosition(46, 17);
+        Console.SetCursorPosition(33, 17);
         Console.ResetColor();
         Console.Write(emergencyTemporaryMessage.PadRight(startPosition + 181).Substring(startPosition, 180));
         Console.CursorVisible = true;
-        Console.SetCursorPosition(46, 17);
+        Console.SetCursorPosition(33, 17);
 
         var keyPressed = new ConsoleKeyInfo();
         var enteredSymbol = whiteSpace;
@@ -1327,19 +1334,19 @@ partial class Program
             }
 
             Console.CursorVisible = false;
-            Console.SetCursorPosition(46, 17);
+            Console.SetCursorPosition(33, 17);
             Console.Write(emergencyTemporaryMessage.PadRight(startPosition + 182).Substring(startPosition, 181));
-            Console.SetCursorPosition(46 + (cursorPosition - startPosition), 17);
+            Console.SetCursorPosition(33 + (cursorPosition - startPosition), 17);
             Console.CursorVisible = true;
         } while (true);
     }
     private static void OutputEmergencyMessage(string emergencyMessage)
     {
         Console.SetCursorPosition(0, 46);
-        WriteToConsole("!!!  A T T E N T I O N  !!!", background: ConsoleColor.White, foreground: ConsoleColor.Black);
+        WriteToConsole("!!!  A T T E N T I O N  !!!", background: ConsoleColor.White, foreground: ConsoleColor.Red);
         Console.SetCursorPosition(0, 48);
-        WriteToConsole(emergencyMessage, background: ConsoleColor.White, foreground: ConsoleColor.Black);
-        WriteToConsole("".PadRight(504 - emergencyMessage.Length));
+        WriteToConsole(emergencyMessage, background: ConsoleColor.White, foreground: ConsoleColor.Red);
+        WriteToConsole("".PadRight(450 - emergencyMessage.Length));
         Console.ResetColor();
     }
 }
