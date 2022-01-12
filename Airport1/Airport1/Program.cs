@@ -6,9 +6,11 @@ namespace Airport1
     class Program
     {
         static int[] maxStringLengthesInTable = new int[GetTableColumnsCount()];
+        const string dateTimeFormat = "dd.MM.yyyy hh:mm";
         static void Main(string[] args)
         {
             const int tableAdditionPortion = 1;
+            
 
             var airportTable = IncreaseOrCreateTable(null, tableAdditionPortion);
             FillTableTitle(airportTable);
@@ -288,7 +290,7 @@ namespace Airport1
                     try
                     {
                         var result = DateTime.Parse(input);
-                        return result.ToString();
+                        return result.ToString(dateTimeFormat);
                     }
                     catch
                     {
@@ -348,7 +350,16 @@ namespace Airport1
                     newValue = GetDataFromUser(title, !convertToInt, convertToBool);
                     break;
                 case TableCoulumns.FlightType:
-                    newValue = ((FlightType)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool))).ToString();
+                    newValue = ((FlightType)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(FlightType)))).ToString();
+                    break;
+                case TableCoulumns.CityPort:
+                    newValue = ((Airpots)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(Airpots)))).ToString();
+                    break;
+                case TableCoulumns.AirLine:
+                    newValue = ((Airlines)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(Airlines)))).ToString();
+                    break;
+                case TableCoulumns.FlightStatus:
+                    newValue = ((FlightStatuses)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(FlightStatuses)))).ToString();
                     break;
                 default:
                     newValue = GetDataFromUser(title);
@@ -452,7 +463,7 @@ namespace Airport1
             dateTime = dateTime.AddDays(rand.Next(1, 365));
             dateTime = dateTime.AddHours(rand.Next(1, 25));
             dateTime = dateTime.AddMinutes(rand.Next(1, 60));
-            SetValueToCell(table, rowToFill, TableCoulumns.DateAndTime, dateTime.ToString("dd.MM.yyyy hh:mm"));
+            SetValueToCell(table, rowToFill, TableCoulumns.DateAndTime, dateTime.ToString(dateTimeFormat));
 
             var flightNumber = rand.Next(100, 100000);
             SetValueToCell(table, rowToFill, TableCoulumns.FlightNumber, flightNumber.ToString());
