@@ -19,7 +19,7 @@ namespace SimpleCalc
 5. Exponentiation");
 
             input = Console.ReadLine();
-            var operation = (operations)int.Parse(input);
+            var operation = (Operations)int.Parse(input);
 
             Console.WriteLine("Enter second operand, please");
             input = Console.ReadLine();
@@ -30,12 +30,12 @@ namespace SimpleCalc
 
             switch (operation)
             {
-                case operations.Multiplication:
+                case Operations.Multiplication:
                     result = operand1 * operand2;
                     operationSymbol = " * ";
                     break;
 
-                case operations.Divide:
+                case Operations.Divide:
 
                     if (operand2 == 0)
                     {
@@ -47,15 +47,15 @@ namespace SimpleCalc
                     operationSymbol = " / ";
                     break;
 
-                case operations.Addition:
+                case Operations.Addition:
                     result = operand1 + operand2;
                     operationSymbol = " + ";
                     break;
-                case operations.Subtraction:
+                case Operations.Subtraction:
                     result = operand1 - operand2;
                     operationSymbol = " - ";
                     break;
-                case operations.Exponentiation:
+                case Operations.Exponentiation:
                     operationSymbol = " ^ ";
                     if (operand2 > 0)
                         result = operand1;
@@ -66,7 +66,6 @@ namespace SimpleCalc
             }
 
             Console.WriteLine("" + operand1.ToString() + operationSymbol + operand2.ToString() + " = " + result.ToString());
-
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SimpleCalc
 {
-    public enum operations
+    public enum Operations
     { 
         Multiplication = 1,
         Divide,
