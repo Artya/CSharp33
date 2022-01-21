@@ -2,18 +2,14 @@
 
 namespace CSharp_Net_module1_2_1_lab
 {
-
-    // 1) declare interface ILibraryUser
     public interface ILibraryUser
     {
-        // declare method's signature for methods of class LibraryUser
         bool AddBook(string bookName);
         void RemoveBook(string bookName);
         string BookInfo(int bookIndex);
         int BooksCount();
     }
 
-    // 2) declare class LibraryUser, it implements ILibraryUser
     public class LibraryUser : ILibraryUser
     {
         private static int objectCounter = 0;
@@ -22,12 +18,8 @@ namespace CSharp_Net_module1_2_1_lab
         private readonly string lastName;
         private readonly int id;
         private readonly int bookLimit;
-        // 4) declare field (bookList) as a string array
         private string[] bookList;
 
-
-        // 3) declare properties: FirstName (read only), LastName (read only), 
-        // Id (read only), Phone (get and set), BookLimit (read only)
         public string FirstName { get => firstName; }
         public  string LastName { get => lastName; }
 
@@ -37,7 +29,6 @@ namespace CSharp_Net_module1_2_1_lab
 
         public int BookLimit { get => bookLimit;  }
        
-        // 5) declare indexer BookList for array bookList
          public string this[int index]
         {
             get
@@ -49,7 +40,6 @@ namespace CSharp_Net_module1_2_1_lab
             }
         }
 
-        // 6) declare constructors: default and parameter
         public LibraryUser()
         {
             this.id = ++objectCounter;
@@ -71,9 +61,8 @@ namespace CSharp_Net_module1_2_1_lab
 
             this.bookList = new string[bookLimit];
         }
-
-        // 7) declare methods: 
-        public bool AddBook(string bookName) // – add new book to array bookList
+ 
+        public bool AddBook(string bookName) 
         {
             var booksCount = BooksCount();
 
@@ -87,7 +76,7 @@ namespace CSharp_Net_module1_2_1_lab
             return true;
 
         }
-        public void RemoveBook(string bookName)// – remove book from array bookList
+        public void RemoveBook(string bookName)
         {
             var bookFound = false;
 
@@ -106,14 +95,14 @@ namespace CSharp_Net_module1_2_1_lab
                 }
             }
         }
-        public string BookInfo(int bookIndex)// – returns book info by index
+        public string BookInfo(int bookIndex)
         {
             if (ChekIndexInRange(bookIndex))
                return bookList[bookIndex];
 
             throw new IndexOutOfRangeException ("Incorrect index");
         }
-        public int BooksCount()// – returns current count of books
+        public int BooksCount()
         {
             for (var i = 0; i < bookLimit; i++)
             {
@@ -128,6 +117,5 @@ namespace CSharp_Net_module1_2_1_lab
         {
             return index >= 0 && index < bookList.Length;
         }
-    }
-  
+    }  
 }
