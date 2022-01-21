@@ -10,31 +10,24 @@ namespace CSharp_Net_module1_2_3_lab
     {
         static void Main(string[] args)
         {
-            // 10) declare 2 objects
             var uah1 = new Money(CurrencyTypes.UAH, 120.5);
             Console.WriteLine("Created uah1: " + uah1);
 
             var uah2 = new Money(CurrencyTypes.UAH, 12.38);
             Console.WriteLine("Created uah2: " + uah2);
 
-            // 11) do operations
-            // add 2 objects of Money
             var uah3 = uah1 + uah2;
             Console.WriteLine("uah3 = uah1 + uah2 = " + uah3);
 
-            // add 1st object of Money and double
             var uah4 = uah3 + 17.35;
             Console.WriteLine("uah4 = uah3 + 17.35 =" + uah4);
-
-            // decrease 2nd object of Money by 1 
+ 
             uah2--;
             Console.WriteLine("uah2-- = " + uah2);
 
-            // increase 1st object of Money
             var uah5 = uah1 * 3;
             Console.WriteLine("uah5 = uah1 * 3 = " + uah5);
 
-            // compare 2 objects of Money
             Console.WriteLine("uah1 > uah2 =" + (uah1 > uah2).ToString());
             Console.WriteLine("uah1 < uah2 =" + (uah1 < uah2).ToString());
 
@@ -52,10 +45,6 @@ namespace CSharp_Net_module1_2_3_lab
             else
                 Console.WriteLine("USD false");
 
-            // compare 2nd object of Money and string // I don`t understand logic of this task
-            // check CurrencyType of every object // yes of course
-
-            // convert 1st object of Money to string
             string strUah = uah1;
             Console.WriteLine("implicit string uah1 = " + strUah);
 

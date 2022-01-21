@@ -2,7 +2,6 @@
 {
     enum CurrencyTypes
     {
-        // 1) declare enumeration CurrencyTypes, values UAH, USD, EU
         UAH,
         USD,
         EU

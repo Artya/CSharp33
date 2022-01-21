@@ -10,18 +10,15 @@ namespace CSharp_Net_module1_2_3_lab
     {
         public static CurrencyTypes DefaultCurrency = CurrencyTypes.UAH;
 
-        // 2) declare 2 properties Amount, CurrencyType
         public double Amount { get; private set; }
         public CurrencyTypes CurrencyType { get; }
 
-        // 3) declare parameter constructor for properties initialization
         public Money(CurrencyTypes currencyType, double amount)
         {
             this.Amount = amount;
             this.CurrencyType = currencyType;
         }
 
-        // 4) declare overloading of operator + to add 2 objects of Money
         public static Money operator + (Money leftMoney, Money rightMoney)
         {
             if (leftMoney.CurrencyType != rightMoney.CurrencyType)
@@ -39,21 +36,17 @@ namespace CSharp_Net_module1_2_3_lab
             return new Money(money.CurrencyType, resultAmount);
         }
 
-        // 5) declare overloading of operator -- to decrease object of Money by 1
         public static Money operator -- (Money money)
         {
             --money.Amount;
             return money;
         }
-
-        // 6) declare overloading of operator * to increase object of Money 3 times
         public static Money operator * (Money money, int multiplier)
         {
             var rezultAmount = money.Amount * multiplier;
             return new Money(money.CurrencyType, rezultAmount);
         }
 
-        // 7) declare overloading of operator > and < to compare 2 objects of Money
         public static bool operator > (Money left, Money Right)
         {
             if (left.CurrencyType != Right.CurrencyType)
@@ -69,7 +62,6 @@ namespace CSharp_Net_module1_2_3_lab
             return left.Amount < Right.Amount;
         }
 
-        // 8) declare overloading of operator true and false to check CurrencyType of object
         public static bool operator true(Money money)
         {
             return money.CurrencyType == DefaultCurrency;
@@ -80,7 +72,6 @@ namespace CSharp_Net_module1_2_3_lab
             return money.CurrencyType != DefaultCurrency;
         }
 
-        // 9) declare overloading of implicit/ explicit conversion  to convert Money to double, string and vice versa
         public static implicit operator string(Money money)
         {
             return money.ToString();
