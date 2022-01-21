@@ -12,13 +12,12 @@ namespace Hello_Console_stud
             {
                 do
                 {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine(@"Please,  type the number:
-                    1.  f(a,b) = |a-b| (unary)
-                    2.  f(a) = a (binary)
-                    3.  music
-                    4.  morse sos
-          
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(@"Please,  type the number:
+1.  f(a,b) = |a-b| (unary)
+2.  f(a) = a (binary)
+3.  music
+4.  morse sos          
                     ");
                     try
                     {
@@ -40,7 +39,7 @@ namespace Hello_Console_stud
                             case 4:
                                 Morse_code();
                                 Console.WriteLine("");
-                                break;                   
+                                break;
                             default:
                                 Console.WriteLine("Exit");
                                 break;
@@ -49,8 +48,8 @@ namespace Hello_Console_stud
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error"+e.Message);
-                    }                   
+                        Console.WriteLine("Error" + e.Message);
+                    }
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Press Spacebar to exit; press any key to continue");
                     Console.ForegroundColor = ConsoleColor.White;
@@ -65,28 +64,19 @@ namespace Hello_Console_stud
         #region ToFromBinary
         static void My_Binary()
         {
-            //Implement positive integer variable input
             Console.WriteLine("Enter a number:");
             var input = Console.ReadLine();
             var enteredNumber = uint.Parse(input);
 
-            //Present it like binary string
-            //   For example, 4 as 100
-            //Use modulus operator to obtain the remainder  (n % 2) 
-            //and divide variable by 2 in the loop
-
-            
             var binaryString = "";
 
             while (enteredNumber > 0)
             {
                 var oneZero = enteredNumber % 2;
                 binaryString += oneZero;
-                enteredNumber = enteredNumber / 2; 
+                enteredNumber = enteredNumber / 2;
             }
 
-            //Use the ToCharArray() method to transform string to chararray
-            //and Array.Reverse() method
             var charArray = binaryString.ToCharArray();
             Array.Reverse(charArray);
 
@@ -97,9 +87,6 @@ namespace Hello_Console_stud
         #region ToFromUnary
         static void My_strings()
         {
-            //Declare int and string variables for decimal and binary presentations
-            //Implement two positive integer variables input
-
             Console.WriteLine("Enter first number:");
             var input = Console.ReadLine();
 
@@ -110,20 +97,12 @@ namespace Hello_Console_stud
 
             var secondNumber = uint.Parse(input);
 
-            //To present each of them in the form of unary string use for loop
             var firstStringRepresentation = GetUnaryStringPreserntation(firstNumber);
             var secondStringRepresentation = GetUnaryStringPreserntation(secondNumber);
 
-            //Use concatenation of these two strings 
-            //Note it is necessary to use some symbol ( for example “#”) to separate
             var resultString = firstStringRepresentation + "#" + secondStringRepresentation;
 
             Console.WriteLine(resultString);
-
-            //Check the numbers on the equality 0
-            //Realize the  algorithm for replacing '1#1' to '#' by using the for loop 
-            //Delete the '#' from algorithm result
-            //Output the result 
 
             if (firstNumber == 0)
                 resultString = secondStringRepresentation;
@@ -138,7 +117,7 @@ namespace Hello_Console_stud
                     resultString = resultString.Replace("1#1", "#");
                 }
 
-                var sharpArray = new char[] {'#'};
+                var sharpArray = new char[] { '#' };
 
                 resultString = resultString.Trim(sharpArray);
             }
@@ -225,18 +204,14 @@ namespace Hello_Console_stud
             const int dotDurationInMiliSeconds = 250;
             const int dashDurationInMiliSeconds = 750;
             const int timeOutInMiliSeconds = 50;
-           
-            //Create string variable for 'sos
+
             Console.WriteLine("Enter some text");
             var word = Console.ReadLine();
-            
-            //Use string array for Morse code
-            string[,] Dictionary_arr = new string [,] { { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+
+            string[,] Dictionary_arr = new string[,] { { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" },
             { ".-   ", "-... ", "-.-. ", "-..  ", ".    ", "..-. ", "--.  ", ".... ", "..   ", ".--- ", "-.-  ", ".-.. ", "--   ", "-.   ", "---  ", ".--. ", "--.- ", ".-.  ", "...  ", "-    ", "..-  ", "...- ", ".--  ", "-..- ", "-.-- ", "--.. ", "-----", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----." }};
 
-            //Use ToCharArray() method for string to copy charecters to Unicode character array
             var vordAsArray = word.ToCharArray();
-            //Use foreach loop for character array in which
 
             foreach (var symbol in vordAsArray)
             {
@@ -263,15 +238,8 @@ namespace Hello_Console_stud
                         }
                     }
                 }
-
-            }
-
-                //Implement Console.Beep(1000, 250) for '.'
-                // and Console.Beep(1000, 750) for '-'
-                //Use Thread.Sleep(50) to separate sounds
-            //                  
+            }                
         }
-
         #endregion
     }
 }
