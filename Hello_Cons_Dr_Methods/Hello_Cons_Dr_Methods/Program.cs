@@ -12,10 +12,8 @@ namespace Hello_Cons_Dr_Methods
         {
             try
             {
-                //Create Box class instance
                 var box = new Box();
 
-                //Implement start position, width and height, symbol, message input
                 Console.WriteLine("Enter start position X:");
                 var input = Console.ReadLine();           
                 box.StartPositionX = int.Parse(input);
@@ -51,11 +49,7 @@ namespace Hello_Cons_Dr_Methods
                 Console.WriteLine("Enter message:");
                 box.Message = Console.ReadLine();
 
-                //Use  Box.Draw() method
                 box.Draw();
-
-                //Console.WriteLine("Press any key...");
-                //Console.ReadLine();
             }
             catch (Exception)
             {

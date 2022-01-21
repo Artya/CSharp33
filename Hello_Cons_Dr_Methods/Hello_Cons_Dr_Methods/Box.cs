@@ -8,10 +8,6 @@ namespace Hello_Cons_Dr_Methods
 {
     class Box
     {
-        //1.  Implement public  auto-implement properties for start position (point position)
-        //auto-implement properties for width and height of the box
-        //and auto-implement properties for a symbol of a given set of valid characters (*, + ,.) to be used for the border 
-        //and a message inside the box
         public int StartPositionX { get; set; }
         public int StartPositionY { get; set; }
         public int BoxWidth { get; set;  }
@@ -19,11 +15,6 @@ namespace Hello_Cons_Dr_Methods
         public char BorderSymbol { get; set; }
         public string Message { get; set; }
        
-
-        //2.  Implement public Draw() method
-        //to define start position, width and height, symbol, message  according to properties
-        //Use Math.Min() and Math.Max() methods
-        //Use draw() to draw the box with message
         public void Draw()
         {
             Console.Clear();
@@ -39,11 +30,6 @@ namespace Hello_Cons_Dr_Methods
             draw(StartPositionX, StartPositionY, BoxWidth, BoxHeight, BorderSymbol, Message);
         }
 
-        //3.  Implement private method draw() with parameters 
-        //for start position, width and height, symbol, message
-        //Change the message in the method to return the Box square
-        //Use Console.SetCursorPosition() method
-        //Trim the message if necessary
         private void draw(int startPositionX, int startPositionY, int width, int height, char symbol, string message)
         {
             var magicZeroBecauseItStartOfAll = 0;
