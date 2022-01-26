@@ -24,6 +24,8 @@ namespace Airport1
         {
             Console.WriteLine(DateTime.Now);
 
+            PrepareFlights();
+
             while (true)
             {
                 if (EmergencyIsSet)
@@ -332,6 +334,33 @@ namespace Airport1
                 Console.WriteLine($"There is no flight with port: {port}");
             }
             Console.WriteLine();
+        }
+
+        public static void PrepareFlights()
+        {
+            var random = new Random();
+
+            for (var i = 0; i < 10; i++)
+                AppendFlight(
+                    FlightType.Arrival,
+                    DateTime.Now.AddHours(random.Next(10)),
+                    "Kiev",
+                    "SkyUp Airlines",
+                    (TerminalType)random.Next(1, 33),
+                    FlightStatusType.InFlight,
+                    "gate"
+                    );
+
+            for (var i = 0; i < 7; i++)
+                AppendFlight(
+                    FlightType.Departure,
+                    DateTime.Now.AddHours(random.Next(5)),
+                    "London",
+                    "SkyUp Airlines",
+                    (TerminalType)random.Next(1, 33),
+                    FlightStatusType.InFlight,
+                    "gate"
+                    );
         }
 
         public static void SetEmergencyStatus()
