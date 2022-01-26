@@ -111,15 +111,9 @@ namespace Airport1
 
         public static void ShowArrivals()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Arrival flights:");
@@ -144,15 +138,9 @@ namespace Airport1
 
         public static void ShowDepartures()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Departure flights:");
@@ -177,15 +165,9 @@ namespace Airport1
 
         public static void EditInformation()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Enter flight number to edit:");
@@ -253,15 +235,9 @@ namespace Airport1
 
         public static void SearchByFlightNumber()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Enter flight number:");
@@ -281,15 +257,9 @@ namespace Airport1
 
         public static void SearchByTime()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Enter time to find flight in specified format dd/mm/yy hh:mm");
@@ -316,15 +286,9 @@ namespace Airport1
 
         public static void SearchNearest()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Enter port to find");
@@ -360,15 +324,9 @@ namespace Airport1
 
         public static void SearchByPort()
         {
-            if (FlightsArray == null)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No flights");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
+            var empty = CheckFlightsArrayForEmptiness();
+            if (empty)
                 return;
-            }
 
             Console.WriteLine();
             Console.WriteLine("Enter port to search");
@@ -414,6 +372,21 @@ namespace Airport1
     flight terminal: {FlightsArray[(int)FlightsArrayLevel.Terminal, index]},
     flight status: {FlightsArray[(int)FlightsArrayLevel.FlightStatus, index]},
     flight gate: {FlightsArray[(int)FlightsArrayLevel.Gate, index]}");
+        }
+
+        public static bool CheckFlightsArrayForEmptiness()
+        {
+            if (FlightsArray == null)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No flights");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                return true;
+            }
+
+            return false;
         }
 
         public static void AppendFlight(
