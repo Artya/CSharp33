@@ -111,45 +111,28 @@ namespace Airport1
 
         public static void ShowArrivals()
         {
-            var empty = CheckFlightsArrayForEmptiness();
-            if (empty)
-                return;
-
-            Console.WriteLine();
-            Console.WriteLine("Arrival flights:");
-
-            var found = false;
-            for (var i = 0; i < FlightsArray.GetLength(1); i++)
-            {
-                var flightType = (FlightType)FlightsArray[0, i];
-                if (flightType == FlightType.Arrival)
-                {
-                    found = true;
-                    PrintFlight(i);
-                }
-            }
-
-            if (!found)
-            {
-                Console.WriteLine("No arrival flights were found");
-            }
-            Console.WriteLine();
+            ShowFlights(FlightType.Arrival);
         }
 
         public static void ShowDepartures()
+        {
+            ShowFlights(FlightType.Departure);
+        }
+
+        public static void ShowFlights(FlightType flightType)
         {
             var empty = CheckFlightsArrayForEmptiness();
             if (empty)
                 return;
 
             Console.WriteLine();
-            Console.WriteLine("Departure flights:");
+            Console.WriteLine($"{flightType} flights:");
 
             var found = false;
             for (var i = 0; i < FlightsArray.GetLength(1); i++)
             {
-                var flightType = (FlightType)FlightsArray[0, i];
-                if (flightType == FlightType.Departure)
+                var currentFlightType = (FlightType)FlightsArray[0, i];
+                if (currentFlightType == flightType)
                 {
                     found = true;
                     PrintFlight(i);
@@ -158,7 +141,7 @@ namespace Airport1
 
             if (!found)
             {
-                Console.WriteLine("No departure flights were found");
+                Console.WriteLine($"No {flightType} flights were found");
             }
             Console.WriteLine();
         }
