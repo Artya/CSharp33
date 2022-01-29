@@ -289,15 +289,18 @@ namespace Airport1
                 var flightTime = (DateTime)FlightsArray[1, i];
                 var flightPort = (string)FlightsArray[2, i];
 
-                if (DateTime.Compare(flightTime, time) > 0 && flightPort == port)
-                {
-                    var differenceInTime = flightTime.Subtract(time).TotalHours;
-                    if (differenceInTime <= 1)
-                    {
-                        found = true;
-                        PrintFlight(i);
-                    }
-                }
+		if (DateTime.Compare(flightTime, time) <= 0 || flightPort != port)
+		{
+		    continue;
+		}
+
+		var differenceIbTime = flightTime.Subtract(time).TotalHours;
+
+		if (diffetenceInTime <= 1)
+		{
+		    found = true;
+		    PrintFlight(i);
+		}
             }
 
             if (!found)
