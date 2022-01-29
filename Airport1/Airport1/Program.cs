@@ -294,9 +294,9 @@ namespace Airport1
 		    continue;
 		}
 
-		var differenceIbTime = flightTime.Subtract(time).TotalHours;
+		var differenceInTime = flightTime.Subtract(time).TotalHours;
 
-		if (diffetenceInTime <= 1)
+		if (differenceInTime <= 1)
 		{
 		    found = true;
 		    PrintFlight(i);
