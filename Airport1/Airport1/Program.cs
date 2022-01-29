@@ -5,12 +5,12 @@ namespace Airport1
 {
     class Program
     {
-        static int[] maxStringLengthesInTable = new int[GetTableColumnsCount()];
+        static int[] maxStringLengthesInTable = new int[GetEnumValues(typeof(TableCoulumns)).Length];
         const string dateTimeFormat = "dd.MM.yyyy hh:mm";
+
         static void Main(string[] args)
         {
             const int tableAdditionPortion = 1;
-            
 
             var airportTable = IncreaseOrCreateTable(null, tableAdditionPortion);
             FillTableTitle(airportTable);
@@ -19,17 +19,8 @@ namespace Airport1
 
             while (true)
             {
-                Console.WriteLine(@$"Please choose operation.
-{(int)OperationType.DisplayTable} - Display table
-{(int)OperationType.AddFlight} - Add flight
-{(int)OperationType.ShowArrival} - Arrivals
-{(int)OperationType.ShowDepartures} - Departures
-{(int)OperationType.EditInformation} - Edit inforamtion
-{(int)OperationType.SearchByFlightNumber} - Search by flight number
-{(int)OperationType.SearchByTime} - Search by specified time in airport
-{(int)OperationType.Exit} - Exit");
+                var operationType = (OperationType)GetEnumValueFromUser(@$"Please choose operation.", typeof(OperationType));
 
-                var operationType = (OperationType)int.Parse(Console.ReadLine());
                 switch (operationType)
                 {
                     case OperationType.DisplayTable:
@@ -83,10 +74,9 @@ namespace Airport1
             return airportTable;
         }
 
-        public static int GetTableColumnsCount()
+        public static Array GetEnumValues(Type enumType)
         {
-            // знаю шо ми таке ще не вчили, але серцем відчував що таке щось має бути, і не помилився
-            return Enum.GetValues(typeof(TableCoulumns)).Length;
+            return Enum.GetValues(enumType);
         }
 
         public static void FillTableTitle(string[,] table)
@@ -123,7 +113,7 @@ namespace Airport1
 
         public static string[,] IncreaseOrCreateTable(string[,] currentTable, int rowCount)
         {
-            var columnCount = GetTableColumnsCount();
+            var columnCount = GetEnumValues(typeof(TableCoulumns)).Length;
             var currentTableRowCount = currentTable == null ? 0 : currentTable.GetLength(0);
             var newRowCount = currentTableRowCount + rowCount;
 
@@ -164,7 +154,9 @@ namespace Airport1
             for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
             {
                 if (rowIndex > 0)
+                {
                     Console.ForegroundColor = airportTable[rowIndex, (int)TableCoulumns.FlightType] == FlightType.Arrival.ToString() ? ConsoleColor.Yellow : ConsoleColor.Blue;
+                }
 
                 WriteVerticalBorder(tableBorderColor);
 
@@ -172,7 +164,14 @@ namespace Airport1
                 {
                     Console.Write(airportTable[rowIndex, columnIndex]);
 
-                    var currentSpaceCount = maxStringLengthesInTable[columnIndex] - (airportTable[rowIndex, columnIndex] == null ? 0 : airportTable[rowIndex, columnIndex].Length);
+                    var currentDataLength = 0;
+
+                    if (airportTable[rowIndex, columnIndex] != null)
+                    {
+                        currentDataLength = airportTable[rowIndex, columnIndex].Length;
+                    }
+
+                    var currentSpaceCount = maxStringLengthesInTable[columnIndex] - currentDataLength;
 
                     for (var spaceIndex = 0; spaceIndex < (currentSpaceCount); spaceIndex++)
                         Console.Write(" ");
@@ -203,55 +202,50 @@ namespace Airport1
         {
             table = IncreaseOrCreateTable(table, 1);
             var currentRowIndex = table.GetLength(0) - 1;
-            var convertToInt = true;
-            var convertToDate = true;
 
             SetValueToCell(table, currentRowIndex, TableCoulumns.RowNum, currentRowIndex.ToString());
 
-            var flightType = (FlightType)int.Parse(GetDataFromUser("Enter flight type:", convertToInt, !convertToDate, typeof(FlightType)));
+            var flightType = (FlightType)GetEnumValueFromUser("Enter flight type:", typeof(FlightType));
             SetValueToCell(table, currentRowIndex, TableCoulumns.FlightType, flightType.ToString());
 
-            var dateTime = GetDataFromUser("Enter flight date/time in format dd/mm/yy hh:mm", !convertToInt, convertToDate);
+            var dateTime = GetDateFromUser("Enter flight date/time in format dd/mm/yy hh:mm");
             SetValueToCell(table, currentRowIndex, TableCoulumns.DateAndTime, dateTime.ToString());
 
-            var flightNumber = GetDataFromUser("Enter flight number");
+            var flightNumber = GetStringFromUser("Enter flight number");
             SetValueToCell(table, currentRowIndex, TableCoulumns.FlightNumber, flightNumber);
 
-            var cityPort = (Airpots)int.Parse(GetDataFromUser("Enter City port of arrival/departure:", convertToInt, !convertToDate, typeof(Airpots)));
+            var cityPort = (Airpots)GetEnumValueFromUser("Enter City port of arrival/departure:", typeof(Airpots));
             SetValueToCell(table, currentRowIndex, TableCoulumns.CityPort, cityPort.ToString());
 
-            var airline = (Airlines)int.Parse(GetDataFromUser("Enter airline", convertToInt, !convertToDate, typeof(Airlines)));
+            var airline = (Airlines)GetEnumValueFromUser("Enter airline", typeof(Airlines));
             SetValueToCell(table, currentRowIndex, TableCoulumns.AirLine, airline.ToString());
 
-            var terminal = GetDataFromUser("Enter terminal");
+            var terminal = GetStringFromUser("Enter terminal");
             SetValueToCell(table, currentRowIndex, TableCoulumns.Terminal, terminal);
 
-            var flightStatus = (FlightStatuses)int.Parse(GetDataFromUser(@"Enter flight status:", convertToInt, !convertToDate, typeof(FlightStatuses)));
+            var flightStatus = (FlightStatuses)GetEnumValueFromUser(@"Enter flight status:", typeof(FlightStatuses));
             SetValueToCell(table, currentRowIndex, TableCoulumns.FlightStatus, flightStatus.ToString());
 
-            var gate = GetDataFromUser("Enter Gate");
+            var gate = GetStringFromUser("Enter Gate");
             SetValueToCell(table, currentRowIndex, TableCoulumns.Gate, gate);
 
             return table;
         }
 
-        public static string GetDataFromUser(string title, bool parseToInt = false, bool parseToDate = false, Type enumerationType = null)
+        public static int GetEnumValueFromUser(string title, Type enumerationType)
         {
             var maxIndex = int.MinValue;
             var minIndex = int.MaxValue;
 
-            if (enumerationType != null)
+            title += Environment.NewLine;
+
+            foreach (var currentEnumValue in GetEnumValues(enumerationType))
             {
-                title += Environment.NewLine;                
+                var indexOfEnum = (int)currentEnumValue;
+                maxIndex = Math.Max(maxIndex, indexOfEnum);
+                minIndex = Math.Min(minIndex, indexOfEnum);
 
-                foreach (var currentEnumValue in Enum.GetValues(enumerationType))
-                {
-                    var indexOfEnum = (int)currentEnumValue;
-                    maxIndex = Math.Max(maxIndex, indexOfEnum);
-                    minIndex = Math.Min(minIndex, indexOfEnum);
-
-                    title += $"{indexOfEnum} - {currentEnumValue} " + Environment.NewLine;
-                }
+                title += $"{indexOfEnum} - {currentEnumValue} " + Environment.NewLine;
             }
 
             while (true)
@@ -260,46 +254,71 @@ namespace Airport1
 
                 var input = Console.ReadLine();
 
-                if (!parseToDate && !parseToInt)
-                    return input;
-
-                if (parseToInt)
+                try
                 {
-                    try
-                    {
-                        var result = int.Parse(input);
+                    var result = int.Parse(input);
 
-                        if (enumerationType != null 
-                            && (result < minIndex || result > maxIndex))
-                        {
-                            Console.WriteLine("Entered value is out of range, try again");
-                            continue;
-                        }
-
-                        return result.ToString();
-                    }
-                    catch
+                    if ((result < minIndex || result > maxIndex))
                     {
-                        Console.WriteLine($"Error converting {input} to number, try again.");
+                        Console.WriteLine("Entered value is out of range, try again");
                         continue;
                     }
+
+                    return result;
                 }
-
-                if (parseToDate)
+                catch
                 {
-                    try
-                    {
-                        var result = DateTime.Parse(input);
-                        return result.ToString(dateTimeFormat);
-                    }
-                    catch
-                    {
-                        Console.WriteLine($"Error converting {input} to Date / Time, try again.");
-                        continue;
-                    }
+                    Console.WriteLine($"Error converting {input} to number, try again.");
                 }
             }
         }
+
+        private static string GetDateFromUser(string title)
+        {
+            while (true)
+            {
+                Console.WriteLine(title);
+
+                var input = Console.ReadLine();
+
+                try
+                {
+                    var result = DateTime.Parse(input);
+                    return result.ToString(dateTimeFormat);
+                }
+                catch
+                {
+                    Console.WriteLine($"Error converting {input} to Date / Time, try again.");
+                }
+            }
+        }
+
+        private static string GetStringFromUser(string title)
+        {
+            Console.WriteLine(title);
+            return Console.ReadLine();
+        }
+
+        private static int GetIntFromUser(string title)
+        {
+            while (true)
+            {
+                Console.WriteLine(title);
+
+                var input = Console.ReadLine();
+
+                try
+                {
+                    var result = int.Parse(input);
+                    return result;
+                }
+                catch
+                {
+                    Console.WriteLine($"Error converting {input} to number, try again.");
+                }
+            }
+        }
+
         public static void ShowArrivals(string[,] airportTable)
         {
             FilterTableByColumnValue(airportTable, TableCoulumns.FlightType, FlightType.Arrival.ToString());
@@ -311,8 +330,6 @@ namespace Airport1
         public static void EditInformation(string[,] airportTable)
         {
             var maxRow = airportTable.GetLength(0) - 1;
-            var convertToInt = true;
-            var convertToBool = true;
 
             if (maxRow < 1)
             {
@@ -321,7 +338,7 @@ namespace Airport1
             }
 
             var title = $"Enter a row number, from 1 to {maxRow}";
-            var row = int.Parse(GetDataFromUser(title, convertToInt));
+            var row = GetIntFromUser(title);
 
             if (row < 1 || row > maxRow)
             {
@@ -329,17 +346,9 @@ namespace Airport1
                 return;
             }
 
-            title = $@"Choose a column to edit
-{(int)TableCoulumns.FlightType} Flight type
-{(int)TableCoulumns.DateAndTime} Date and time
-{(int)TableCoulumns.FlightNumber} Flight number
-{(int)TableCoulumns.CityPort} City / port
-{(int)TableCoulumns.AirLine} Airline
-{(int)TableCoulumns.Terminal} Terminal
-{(int)TableCoulumns.FlightStatus} Flight status
-{(int)TableCoulumns.Gate} Gate";
+            title = $@"Choose a column to edit";
 
-            var column = (TableCoulumns)int.Parse(GetDataFromUser(title, convertToInt));
+            var column = (TableCoulumns)GetEnumValueFromUser(title, typeof(TableCoulumns));
 
             title = $"Current value is: {airportTable[row, (int)column]}, Enter new value please:";
             var newValue = string.Empty;
@@ -347,22 +356,22 @@ namespace Airport1
             switch (column)
             {
                 case TableCoulumns.DateAndTime:
-                    newValue = GetDataFromUser(title, !convertToInt, convertToBool);
+                    newValue = GetDateFromUser(title);
                     break;
                 case TableCoulumns.FlightType:
-                    newValue = ((FlightType)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(FlightType)))).ToString();
+                    newValue = ((FlightType)GetEnumValueFromUser(title, typeof(FlightType))).ToString();
                     break;
                 case TableCoulumns.CityPort:
-                    newValue = ((Airpots)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(Airpots)))).ToString();
+                    newValue = ((Airpots)GetEnumValueFromUser(title, typeof(Airpots))).ToString();
                     break;
                 case TableCoulumns.AirLine:
-                    newValue = ((Airlines)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(Airlines)))).ToString();
+                    newValue = ((Airlines)GetEnumValueFromUser(title, typeof(Airlines))).ToString();
                     break;
                 case TableCoulumns.FlightStatus:
-                    newValue = ((FlightStatuses)int.Parse(GetDataFromUser(title, convertToInt, !convertToBool, typeof(FlightStatuses)))).ToString();
+                    newValue = ((FlightStatuses)GetEnumValueFromUser(title, typeof(FlightStatuses))).ToString();
                     break;
                 default:
-                    newValue = GetDataFromUser(title);
+                    newValue = GetStringFromUser(title);
                     break;
             }
 
@@ -370,20 +379,14 @@ namespace Airport1
         }
         public static void SearchByFlightNumber(string[,] airportTable)
         {
-            var searchingFlightNumber = GetDataFromUser("Enter flight number to search");
+            var searchingFlightNumber = GetStringFromUser("Enter flight number to search");
             FilterTableByColumnValue(airportTable, TableCoulumns.FlightNumber, searchingFlightNumber);
         }
         public static void SearchByTime(string[,] airportTable)
         {
-            var title = @$"Choose filter type:
-{(int)TimeFilters.Hour} One hour
-{(int)TimeFilters.Day} One day
-{(int)TimeFilters.Week} One week
-{(int)TimeFilters.Month} One month
-{(int)TimeFilters.HalfAYear} Six months
-{(int)TimeFilters.Year} One Year";
+            var title = @$"Choose filter type:";
 
-            var choice = (TimeFilters)int.Parse(GetDataFromUser(title, true));
+            var choice = (TimeFilters)GetEnumValueFromUser(title, typeof(TimeFilters));
 
             var filterDate = DateTime.Now;
 
@@ -468,10 +471,10 @@ namespace Airport1
             var flightNumber = rand.Next(100, 100000);
             SetValueToCell(table, rowToFill, TableCoulumns.FlightNumber, flightNumber.ToString());
 
-            var cityPort = (Airpots)rand.Next(0, Enum.GetValues(typeof(Airpots)).Length);
+            var cityPort = (Airpots)rand.Next(0, GetEnumValues(typeof(Airpots)).Length);
             SetValueToCell(table, rowToFill, TableCoulumns.CityPort, cityPort.ToString());
 
-            var fligtStatus = (FlightStatuses)rand.Next(0, Enum.GetValues(typeof(FlightStatuses)).Length);
+            var fligtStatus = (FlightStatuses)rand.Next(0, GetEnumValues(typeof(FlightStatuses)).Length);
             SetValueToCell(table, rowToFill, TableCoulumns.FlightStatus, fligtStatus.ToString());
 
             var terminals = "ABCDEF";
@@ -481,7 +484,7 @@ namespace Airport1
             var gate = rand.Next(1, 50);
             SetValueToCell(table, rowToFill, TableCoulumns.Gate, gate.ToString());
 
-            var airLine = (Airlines)rand.Next(0, Enum.GetValues(typeof(Airlines)).Length);
+            var airLine = (Airlines)rand.Next(0, GetEnumValues(typeof(Airlines)).Length);
             SetValueToCell(table, rowToFill, TableCoulumns.AirLine, airLine.ToString());
 
             return table;
@@ -519,12 +522,9 @@ namespace Airport1
                     newTable = IncreaseOrCreateTable(newTable, 1);
                     var lastRowOfNewTable = newTable.GetLength(0) - 1;
 
-                    for (var columnIndex = 0; columnIndex < GetTableColumnsCount(); columnIndex++)
+                    foreach (var currentColumn in GetEnumValues(typeof(TableCoulumns)))
                     {
-
-                        var currentColumn = (TableCoulumns)columnIndex;
-
-                        SetValueToCell(newTable, lastRowOfNewTable, currentColumn, airportTable[rowIndex, columnIndex]);
+                        SetValueToCell(newTable, lastRowOfNewTable, (TableCoulumns)currentColumn, airportTable[rowIndex, (int)currentColumn]);
                     }
                 }
             }
