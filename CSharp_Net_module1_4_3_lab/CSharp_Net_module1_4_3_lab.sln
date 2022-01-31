@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp_Net_module1_4_3_lab", "CSharp_Net_module1_4_3_lab\CSharp_Net_module1_4_3_lab.csproj", "{1ABC8A91-9815-404E-A6F4-1A667259853B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ABC8A91-9815-404E-A6F4-1A667259853B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABC8A91-9815-404E-A6F4-1A667259853B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABC8A91-9815-404E-A6F4-1A667259853B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABC8A91-9815-404E-A6F4-1A667259853B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
