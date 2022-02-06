@@ -51,10 +51,7 @@ namespace AnimalSorting
             public bool MoveNext()
             {
                 position++;
-                if (position >= this.animals.Length)
-                    return false;
-
-                return true;
+		return position < this.animals.Length;
             }
 
             public void Reset()
