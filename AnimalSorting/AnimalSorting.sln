@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalSorting", "AnimalSorting\AnimalSorting.csproj", "{BA0448D9-5EDA-4034-82AE-584EB8218BD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA0448D9-5EDA-4034-82AE-584EB8218BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0448D9-5EDA-4034-82AE-584EB8218BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0448D9-5EDA-4034-82AE-584EB8218BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0448D9-5EDA-4034-82AE-584EB8218BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A16EAF39-7655-4E97-B909-4134A96A2479}
+	EndGlobalSection
+EndGlobal
