@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace CSharp_Net_module1_7_1_lab
 {
-    delegate int del(int i);
-
     public class Computer
     {
         public int Cores { get; set; }
