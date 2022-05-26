@@ -51,8 +51,6 @@ namespace Hello_Serialization_stud
                 {
                     serializeFormatter.Serialize(streamWrite, student);
                 }
-
-                streamWrite.Close();
             }
             
             using (Stream streamRead = new FileStream(binaryFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -74,8 +72,6 @@ namespace Hello_Serialization_stud
                     }
                 }
                 while (deserializedStudent != null);
-
-                streamRead.Close();
             }
         }
 
@@ -92,8 +88,6 @@ namespace Hello_Serialization_stud
                 {
                     serializeFormatter.Serialize(streamWrite, student);
                 }
-
-                streamWrite.Close();
             }
 
             using (Stream streamRead = new FileStream(soapFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -114,8 +108,6 @@ namespace Hello_Serialization_stud
                     }
                 }
                 while (deserializedStudent != null);
-
-                streamRead.Close();
             }
         }
 
@@ -129,8 +121,6 @@ namespace Hello_Serialization_stud
                 var serializer = new XmlSerializer(typeof(Student));
 
                 serializer.Serialize(stream, student);
-
-                stream.Close();
             }
 
             using (Stream streamRead = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -139,8 +129,6 @@ namespace Hello_Serialization_stud
 
                 var deserializedStudent = (Student)serializer.Deserialize(streamRead);
                 Console.WriteLine(deserializedStudent);             
-
-                streamRead.Close();
             }
         }
     }
