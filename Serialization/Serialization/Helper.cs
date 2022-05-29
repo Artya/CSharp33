@@ -15,15 +15,12 @@ namespace Serialization
         {
             xmlFormatter = new XmlSerializer(typeof(Student));
             binaryFormatter = new BinaryFormatter();
-            
+
         }
 
         public static void SerializeToXml(Student student, Stream stream)
         {
-            using (stream)
-            {
-                xmlFormatter.Serialize(stream, student);
-            }
+            xmlFormatter.Serialize(stream, student);
         }
         public static Student DeserializeXml(Stream stream)
         {
@@ -33,17 +30,14 @@ namespace Serialization
         }
         public static void SerializeToBinary(Student student, Stream stream)
         {
-            using (stream)
+            try
             {
-                try
-                {
-                    binaryFormatter.Serialize(stream, student);
-                }
-                catch (SerializationException ex)
-                {
-                    Console.WriteLine($"Error while serializing to binary format, error: {ex.Message}");
-                    throw;
-                }
+                binaryFormatter.Serialize(stream, student);
+            }
+            catch (SerializationException ex)
+            {
+                Console.WriteLine($"Error while serializing to binary format, error: {ex.Message}");
+                throw;
             }
         }
         public static Student DeserializeBinary(Stream stream)
