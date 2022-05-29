@@ -7,44 +7,44 @@ namespace UnitTestTests
     public class StringExtensionTests
     {
         [TestMethod]
-        public void Handle_When_ColorIsBlack_Then_MustBeTrue()
+        public void IsBaseColor_When_ColorIsBlack_Then_MustBeTrue()
         {
             // Arrange
             const string color = "black";
+            const bool expected = true;
 
             // Act
             bool actual = color.IsBaseColor();
 
             // Assert
-            const bool expected = true;
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
-        public void Handle_When_ColorIsWhite_Then_MustBeTrue()
+        public void IsBaseColor_When_ColorIsWhite_Then_MustBeTrue()
         {
             // Arrange
             const string color = "white";
+            const bool expected = true;
 
             // Act
             bool actual = color.IsBaseColor();
 
             // Assert
-            const bool expected = true;
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
-        public void Handle_When_ColorIsRandomColor_Then_MustBeFalse()
+        public void IsBaseColor_When_ColorIsRandomColor_Then_MustBeFalse()
         {
             // Arrange
             const string color = "green";
+            const bool expected = false;
 
             // Act
             bool actual = color.IsBaseColor();
 
             // Assert
-            const bool expected = false;
             Assert.AreEqual(expected, actual);
         }
     }
