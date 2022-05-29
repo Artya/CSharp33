@@ -54,6 +54,22 @@ namespace DataSets
             return rowsAffected;
         }
 
+        public void printEmailValues()
+        {
+            var sqlReader = this.ReadEmailTable();
+
+            while (sqlReader.Read())
+            {
+                readSingleRow(sqlReader);
+            }
+
+            sqlReader.Close();
+        }
+        private static void readSingleRow(IDataRecord record)
+        {
+            Console.WriteLine($"email id: {record[0]}, email: {record[1]}, lecturer id: {record[2]}");
+        }
+
         public void Dispose()
         {
             this.Connection.Close();
