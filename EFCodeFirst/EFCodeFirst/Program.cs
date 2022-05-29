@@ -135,13 +135,6 @@ Total price: {orderInfo.TotalPrice}");
         {
             clearDB(context);
 
-            prepareCustomers(context);
-            prepareSuppliers(context);
-            prepareProducts(context);
-            prepareOrders(context);
-        }
-        static void prepareCustomers(Context context)
-        {
             var customer1 = new Customer
             {
                 cutomerName = "Petya",
@@ -162,10 +155,6 @@ Total price: {orderInfo.TotalPrice}");
             context.Customers.Add(customer2);
             context.Customers.Add(customer3);
 
-            context.SaveChanges();
-        }
-        static void prepareSuppliers(Context context)
-        {
             var supplier1 = new Supplier
             {
                 supplierName = "Rozetka",
@@ -182,56 +171,43 @@ Total price: {orderInfo.TotalPrice}");
             context.Suppliers.Add(supplier1);
             context.Suppliers.Add(supplier2);
 
-            context.SaveChanges();
-        }
-        static void prepareProducts(Context context)
-        {
-            var suppliers = context.Suppliers.Take(2).ToArray();
-
             var product1 = new Product
             {
                 productName = "IPhone 18 512TB",
                 productPrice = 5000,
                 productType = "IPhone",
-                supplier = suppliers[0]
+                supplier = supplier1
             };
             var product2 = new Product
             {
                 productName = "IPhone 18 PRO 1024TB",
                 productPrice = 7000,
                 productType = "IPhone",
-                supplier = suppliers[0]
+                supplier = supplier1
             };
             var product3 = new Product
             {
                 productName = "Samsung Galaxy S50 512TB",
                 productPrice = 5000,
                 productType = "Samsung Galaxy series",
-                supplier = suppliers[1]
+                supplier = supplier2
             };
 
             context.Products.Add(product1);
             context.Products.Add(product2);
             context.Products.Add(product3);
 
-            context.SaveChanges();
-        }
-        static void prepareOrders(Context context)
-        {
-            var products = context.Products.Take(2).ToArray();
-            var customers = context.Customers.Take(2).ToArray();
-
             var order1 = new Order
             {
                 orderStatus = true,
                 orderDate = DateTime.Now,
                 orderDetails = "Kiev, Khreschatyk st. 36, 01044",
-                customer = customers[0]
+                customer = customer1
             };
             var orderList1 = new OrderList
             {
                 order = order1,
-                product = products[0],
+                product = product1,
                 productQuantity = 1
             };
 
@@ -240,12 +216,12 @@ Total price: {orderInfo.TotalPrice}");
                 orderStatus = true,
                 orderDate = DateTime.Now,
                 orderDetails = "Kiev, Khreaschatyak st. 15, 01001",
-                customer = customers[1]
+                customer = customer2
             };
             var orderList2 = new OrderList
             {
                 order = order2,
-                product = products[1],
+                product = product2,
                 productQuantity = 1
             };
 
