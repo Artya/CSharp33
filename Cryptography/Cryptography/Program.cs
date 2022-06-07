@@ -21,6 +21,7 @@ namespace Cryptography
 
             var normalData = default(byte[]);
             var signedData = default(byte[]);
+            var signedModifiedData = default(byte[]);
 
             var md5UnsignedHash = new byte[CryptographyHelper.MD5HashLength];
             var md5SignedHash = new byte[CryptographyHelper.MD5HashLength];
@@ -33,9 +34,8 @@ namespace Cryptography
 
             using (var fileStream = File.Open("person.xml", FileMode.Open))
             {
-                var buffer = new byte[fileStream.Length];
-                fileStream.Read(buffer, 0, buffer.Length);
-                normalData = buffer;
+                normalData = new byte[fileStream.Length];
+                fileStream.Read(normalData, 0, normalData.Length);
             }
 
             md5UnsignedHash = CryptographyHelper.MD5Hash(normalData);
@@ -51,9 +51,8 @@ namespace Cryptography
 
             using (var fileStream = File.Open("person.signed.xml", FileMode.Open))
             {
-                var buffer = new byte[fileStream.Length];
-                fileStream.Read(buffer, 0, buffer.Length);
-                signedData = buffer;
+                signedData = new byte[fileStream.Length];
+                fileStream.Read(signedData, 0, signedData.Length);
             }
 
             md5SignedHash = CryptographyHelper.MD5Hash(signedData);
@@ -77,11 +76,11 @@ namespace Cryptography
 
             using (var fileStream = File.Open("person.signed.modified.xml", FileMode.Open))
             {
-                var buffer = new byte[fileStream.Length - CryptographyHelper.HMACSHA256HashLength];
+                signedModifiedData = new byte[fileStream.Length - CryptographyHelper.HMACSHA256HashLength];
                 fileStream.Position = CryptographyHelper.HMACSHA256HashLength;
-                fileStream.Read(buffer, 0, buffer.Length);
+                fileStream.Read(signedModifiedData, 0, signedModifiedData.Length);
 
-                Console.WriteLine($"Is person.signed.modified.xml signed right? Answer: {CryptographyHelper.SignCheck(buffer, password, hmacHash)} ");
+                Console.WriteLine($"Is person.signed.modified.xml signed right? Answer: {CryptographyHelper.SignCheck(signedModifiedData, password, hmacHash)} ");
             }
         }
     }
