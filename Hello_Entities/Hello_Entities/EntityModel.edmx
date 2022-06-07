@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CourseLecturers">
+          <Key>
+            <PropertyRef Name="CourseId" />
+            <PropertyRef Name="LecturesId" />
+          </Key>
+          <Property Name="CourseId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="LecturesId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="LecturesOrder" Type="smallint" Nullable="false" />
+          <Property Name="Share" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="20" />
+          <Property Name="FacultId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Size" Type="int" />
+          <Property Name="Marks" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="BeginDate" Type="date" />
+          <Property Name="Contract" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="int" Nullable="false" />
+          <Property Name="EmailValue" Type="nvarchar(max)" />
+          <Property Name="LecturereId" Type="char" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Faculties">
+          <Key>
+            <PropertyRef Name="FaclId" />
+          </Key>
+          <Property Name="FaclId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="FaclName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="University" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Country" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lecturers">
+          <Key>
+            <PropertyRef Name="LecturerId" />
+          </Key>
+          <Property Name="LecturerId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="LectureFirstName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LectureLastName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="12" />
+          <Property Name="Address" Type="varchar" MaxLength="20" />
+          <Property Name="City" Type="varchar" MaxLength="15" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Zip" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Bonus" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Rate" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <Association Name="fk_Peremail">
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="0..1" />
+          <End Role="Email" Type="Self.Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecturerId" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="LecturereId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntityModelStoreContainer">
+          <EntitySet Name="CourseLecturers" EntityType="Self.CourseLecturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculties" EntityType="Self.Faculties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Peremail" Association="Self.fk_Peremail">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="Email" EntitySet="Email" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CourseLecturers">
+          <Key>
+            <PropertyRef Name="CourseId" />
+            <PropertyRef Name="LecturesId" />
+          </Key>
+          <Property Name="CourseId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LecturesId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LecturesOrder" Type="Int16" Nullable="false" />
+          <Property Name="Share" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FacultId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Size" Type="Int32" />
+          <Property Name="Marks" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="BeginDate" Type="DateTime" Precision="0" />
+          <Property Name="Contract" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="Int32" Nullable="false" />
+          <Property Name="EmailValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LecturereId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Lecturers" Relationship="Self.fk_Peremail" FromRole="Email" ToRole="Lecturers" />
+        </EntityType>
+        <EntityType Name="Faculties">
+          <Key>
+            <PropertyRef Name="FaclId" />
+          </Key>
+          <Property Name="FaclId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FaclName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="University" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lecturers">
+          <Key>
+            <PropertyRef Name="LecturerId" />
+          </Key>
+          <Property Name="LecturerId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LectureFirstName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LectureLastName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Email" Relationship="Self.fk_Peremail" FromRole="Lecturers" ToRole="Email" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Bonus" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <Association Name="fk_Peremail">
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="0..1" />
+          <End Role="Email" Type="Self.Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecturerId" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="LecturereId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesCourses" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CourseLecturers" EntityType="Self.CourseLecturers" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" />
+          <EntitySet Name="Email" EntityType="Self.Email" />
+          <EntitySet Name="Faculties" EntityType="Self.Faculties" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturers" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" />
+          <AssociationSet Name="fk_Peremail" Association="Self.fk_Peremail">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="Email" EntitySet="Email" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EntityModelStoreContainer" CdmEntityContainer="EntitiesCourses">
+          <EntitySetMapping Name="CourseLecturers">
+            <EntityTypeMapping TypeName="EntityModel.CourseLecturers">
+              <MappingFragment StoreEntitySet="CourseLecturers">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="LecturesId" ColumnName="LecturesId" />
+                <ScalarProperty Name="LecturesOrder" ColumnName="LecturesOrder" />
+                <ScalarProperty Name="Share" ColumnName="Share" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="EntityModel.Courses">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FacultId" ColumnName="FacultId" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Email">
+            <EntityTypeMapping TypeName="EntityModel.Email">
+              <MappingFragment StoreEntitySet="Email">
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="EmailValue" ColumnName="EmailValue" />
+                <ScalarProperty Name="LecturereId" ColumnName="LecturereId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculties">
+            <EntityTypeMapping TypeName="EntityModel.Faculties">
+              <MappingFragment StoreEntitySet="Faculties">
+                <ScalarProperty Name="FaclId" ColumnName="FaclId" />
+                <ScalarProperty Name="FaclName" ColumnName="FaclName" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturers">
+            <EntityTypeMapping TypeName="EntityModel.Lecturers">
+              <MappingFragment StoreEntitySet="Lecturers">
+                <ScalarProperty Name="LecturerId" ColumnName="LecturerId" />
+                <ScalarProperty Name="LectureFirstName" ColumnName="LectureFirstName" />
+                <ScalarProperty Name="LectureLastName" ColumnName="LectureLastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="EntityModel.Ratings">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
